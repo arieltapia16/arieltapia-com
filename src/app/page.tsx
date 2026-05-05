@@ -60,7 +60,7 @@ export default function Home() {
               src="/ariel.jpg"
               alt="Ariel Tapia"
               fill
-              className="object-cover object-[center_15%]"
+              className="object-cover object-[center_8%]"
             />
           </div>
 
