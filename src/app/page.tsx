@@ -44,7 +44,7 @@ export default function Home() {
 
         {/* Name top center */}
         <div className="relative z-10 pt-8 flex justify-center">
-          <span className="text-white text-xs font-light tracking-[0.35em] uppercase">
+          <span className="text-white text-2xl font-light tracking-[0.35em] uppercase">
             Ariel Tapia
           </span>
         </div>
