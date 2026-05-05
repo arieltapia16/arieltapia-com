@@ -57,15 +57,15 @@ export default function Home() {
             {/* Dynamic island */}
             <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-16 h-4 bg-black rounded-full z-10" />
             <div className="h-10 shrink-0" />
-            <div className="flex-1 relative">
-              <Image
-                src="/ariel.jpg"
-                alt="Ariel Tapia"
-                fill
-                className="object-cover object-top"
-              />
-              {/* black overlay — covers body below shirt pocket (~57% of image) */}
-              <div className="absolute bottom-0 inset-x-0 h-[43%] bg-black" />
+            <div className="flex-1 flex items-center justify-center">
+              <div className="relative w-full h-[100px] sm:h-[120px]">
+                <Image
+                  src="/ariel.jpg"
+                  alt="Ariel Tapia"
+                  fill
+                  className="object-cover object-top"
+                />
+              </div>
             </div>
             <div className="h-10 shrink-0" />
           </div>
