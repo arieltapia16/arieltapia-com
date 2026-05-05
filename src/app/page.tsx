@@ -53,12 +53,12 @@ export default function Home() {
         <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 text-center gap-8">
 
           {/* Phone mockup */}
-          <div className="relative w-[160px] h-[320px] sm:w-[190px] sm:h-[380px] bg-black rounded-[36px] border-[7px] border-white/20 shadow-2xl overflow-hidden shrink-0 flex flex-col">
+          <div className="relative w-[208px] h-[416px] sm:w-[247px] sm:h-[494px] bg-black rounded-[47px] border-[9px] border-white/20 shadow-2xl overflow-hidden shrink-0 flex flex-col">
             {/* Dynamic island */}
-            <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-16 h-4 bg-black rounded-full z-10" />
-            <div className="h-10 shrink-0" />
+            <div className="absolute top-[13px] left-1/2 -translate-x-1/2 w-[83px] h-[21px] bg-black rounded-full z-10" />
+            <div className="h-[52px] shrink-0" />
             <div className="flex-1 flex items-center justify-center">
-              <div className="relative w-full h-[165px] sm:h-[195px]">
+              <div className="relative w-full h-[215px] sm:h-[254px]">
                 <Image
                   src="/ariel.jpg"
                   alt="Ariel Tapia"
@@ -67,7 +67,7 @@ export default function Home() {
                 />
               </div>
             </div>
-            <div className="h-10 shrink-0" />
+            <div className="h-[52px] shrink-0" />
           </div>
 
           {/* Title */}
