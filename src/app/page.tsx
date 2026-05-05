@@ -58,7 +58,7 @@ export default function Home() {
             <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-16 h-4 bg-black rounded-full z-10" />
             <div className="h-10 shrink-0" />
             <div className="flex-1 flex items-center justify-center">
-              <div className="relative w-full h-[100px] sm:h-[120px]">
+              <div className="relative w-full h-[165px] sm:h-[195px]">
                 <Image
                   src="/ariel.jpg"
                   alt="Ariel Tapia"
