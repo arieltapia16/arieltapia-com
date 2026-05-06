@@ -73,12 +73,18 @@ export default function Home() {
 
           {/* Title */}
           <div>
-            <div className="w-10 h-[2px] bg-[#FF5C00] mx-auto mb-5" />
+            <div className="flex items-center justify-center gap-2 mb-5">
+              <span className="w-2 h-2 rounded-full bg-[#FF5C00] animate-pulse shrink-0" />
+              <span className="text-white/50 text-xs tracking-[0.2em] uppercase">Ahora mismo</span>
+            </div>
             <h1 className="font-serif text-white text-3xl sm:text-4xl md:text-5xl font-bold leading-tight max-w-xl">
-              Algo poderoso está por llegar
+              Ayudando a personal trainers a vender digital 1:1
             </h1>
             <p className="text-white/60 text-base sm:text-lg mt-4 max-w-sm mx-auto">
-              Te enseño a vender en redes. Sin trucos. Con método.
+              Me dedico a potenciar la venta en redes. Sin trucos. Con método.
+            </p>
+            <p className="text-white/40 text-sm mt-3 max-w-sm mx-auto">
+              ¿Sos del rubro? Anotate y te cuento cómo.
             </p>
           </div>
         </div>
@@ -87,6 +93,28 @@ export default function Home() {
         <div className="relative z-10 pb-8 flex justify-center">
           <div className="w-px h-10 bg-white/25" />
         </div>
+      </section>
+
+      {/* Who I am section */}
+      <section className="py-20 px-6 flex flex-col items-center border-b border-white/5">
+        <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-10">Quién soy</p>
+        <div className="grid grid-cols-3 gap-6 sm:gap-12 mb-12 w-full max-w-md text-center">
+          <div>
+            <p className="font-serif text-[#FF5C00] text-3xl sm:text-4xl font-bold">20</p>
+            <p className="text-white/50 text-xs mt-1 leading-snug">años en<br/>ventas</p>
+          </div>
+          <div>
+            <p className="font-serif text-[#FF5C00] text-3xl sm:text-4xl font-bold">&lt;/&gt;</p>
+            <p className="text-white/50 text-xs mt-1 leading-snug">desarrollo<br/>de software</p>
+          </div>
+          <div>
+            <p className="font-serif text-[#FF5C00] text-3xl sm:text-4xl font-bold">360°</p>
+            <p className="text-white/50 text-xs mt-1 leading-snug">estrategia<br/>en redes</p>
+          </div>
+        </div>
+        <p className="text-white/60 text-sm sm:text-base text-center max-w-sm leading-relaxed">
+          Combiné ventas, tecnología y redes para crear un método que realmente funciona en el mundo digital.
+        </p>
       </section>
 
       {/* Form section */}
@@ -102,12 +130,12 @@ export default function Home() {
           </p>
         </div>
 
-        <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-4">Avisame</p>
+        <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-4">Contacto</p>
         <h2 className="font-serif text-white text-3xl sm:text-4xl font-semibold text-center mb-3">
-          Sé el primero en enterarte
+          ¿Trabajamos juntos?
         </h2>
         <p className="text-white/40 text-sm text-center mb-10 max-w-xs">
-          Escribime sobre qué rubro querés impulsar y te aviso cuando esté disponible.
+          Si sos entrenador o tu rubro todavía no está, escribime. Siempre escucho.
         </p>
 
         {!submitted ? (
@@ -131,8 +159,8 @@ export default function Home() {
             <textarea
               value={rubro}
               onChange={(e) => setRubro(e.target.value)}
-              placeholder="¿En qué rubro querés crecer? (ej: coach, fotógrafo, chef...)"
-              rows={3}
+              placeholder="Contame a qué te dedicás y qué querés lograr..."
+              rows={4}
               className="bg-white/5 text-white placeholder-white/25 px-4 py-3 border border-white/10 outline-none focus:border-[#FF5C00] transition text-sm resize-none"
             />
             <button
@@ -140,12 +168,12 @@ export default function Home() {
               disabled={loading}
               className="bg-[#FF5C00] text-white text-sm font-semibold py-3 px-6 hover:bg-[#e05200] transition-colors tracking-widest uppercase disabled:opacity-50"
             >
-              {loading ? 'Enviando...' : 'Avisame cuando llegue'}
+              {loading ? 'Enviando...' : 'Mandame un mensaje'}
             </button>
           </form>
         ) : (
           <p className="text-[#FF5C00] text-base text-center">
-            ¡Listo! Te avisamos cuando abramos.
+            ¡Mensaje recibido! Te respondo a la brevedad.
           </p>
         )}
 
