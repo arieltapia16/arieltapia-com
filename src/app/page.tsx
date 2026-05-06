@@ -7,6 +7,7 @@ import { FaInstagram, FaTiktok } from 'react-icons/fa6'
 export default function Home() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [rubro, setRubro] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
 
@@ -17,7 +18,7 @@ export default function Home() {
       await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email }),
+        body: JSON.stringify({ name, email, rubro }),
       })
       setSubmitted(true)
     } finally {
@@ -90,12 +91,23 @@ export default function Home() {
 
       {/* Form section */}
       <section className="py-20 px-6 flex flex-col items-center">
+
+        {/* Current focus badge */}
+        <div className="flex items-center gap-2 mb-10 px-4 py-2 border border-white/10 bg-white/5">
+          <span className="w-2 h-2 rounded-full bg-[#FF5C00] animate-pulse shrink-0" />
+          <p className="text-white/60 text-xs">
+            Hoy estoy ayudando a{' '}
+            <span className="text-white font-medium">personal trainers</span>
+            {' '}a vender digital 1:1
+          </p>
+        </div>
+
         <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-4">Avisame</p>
         <h2 className="font-serif text-white text-3xl sm:text-4xl font-semibold text-center mb-3">
           Sé el primero en enterarte
         </h2>
         <p className="text-white/40 text-sm text-center mb-10 max-w-xs">
-          Dejá tus datos y te aviso cuando abramos.
+          Escribime sobre qué rubro querés impulsar y te aviso cuando esté disponible.
         </p>
 
         {!submitted ? (
@@ -115,6 +127,13 @@ export default function Home() {
               placeholder="Email"
               required
               className="bg-white/5 text-white placeholder-white/25 px-4 py-3 border border-white/10 outline-none focus:border-[#FF5C00] transition text-sm"
+            />
+            <textarea
+              value={rubro}
+              onChange={(e) => setRubro(e.target.value)}
+              placeholder="¿En qué rubro querés crecer? (ej: coach, fotógrafo, chef...)"
+              rows={3}
+              className="bg-white/5 text-white placeholder-white/25 px-4 py-3 border border-white/10 outline-none focus:border-[#FF5C00] transition text-sm resize-none"
             />
             <button
               type="submit"
