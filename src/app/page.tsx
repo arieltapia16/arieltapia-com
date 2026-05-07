@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
-import { FaInstagram, FaTiktok } from 'react-icons/fa6'
+import { FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
 
 export default function Home() {
   const [name, setName] = useState('')
@@ -25,6 +25,8 @@ export default function Home() {
       setLoading(false)
     }
   }
+
+  const whatsappUrl = `https://wa.me/5492236693894?text=${encodeURIComponent('Quiero saber más acerca de la mentoría 1:1')}`
 
   return (
     <main className="bg-[#0D0D0D] min-h-screen">
@@ -199,6 +201,18 @@ export default function Home() {
           </a>
         </div>
       </section>
+
+      {/* Floating WhatsApp button */}
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Contactar por WhatsApp"
+        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#25D366] text-white pl-3 pr-4 py-3 rounded-full shadow-lg hover:bg-[#1ebe5d] transition-colors"
+      >
+        <FaWhatsapp size={22} />
+        <span className="text-sm font-semibold">Escribime</span>
+      </a>
 
     </main>
   )
