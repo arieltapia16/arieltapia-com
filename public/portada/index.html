@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor de Portadas — Ariel Tapia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Dancing+Script:wght@700&family=Inter:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --accent: #E85A0A;
+      --bg: #0f0f0f;
+      --panel: #181818;
+      --border: #2a2a2a;
+      --text: #ffffff;
+      --muted: #555;
+      --card-bg: #1c1a17;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    header h1 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: var(--text);
+    }
+
+    header span {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--muted);
+    }
+
+    .app {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      width: 320px;
+      flex-shrink: 0;
+      background: var(--panel);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .section-title {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tab {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .tab:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .tab.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .field label {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .field input,
+    .field textarea {
+      background: #111;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      padding: 8px 10px;
+      width: 100%;
+      outline: none;
+      resize: vertical;
+      transition: border-color 0.15s;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .field textarea {
+      min-height: 60px;
+    }
+
+    .photo-upload {
+      border: 1.5px dashed var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.15s;
+      position: relative;
+      display: block;
+    }
+
+    .photo-upload:hover {
+      border-color: var(--accent);
+    }
+
+    .photo-upload input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .photo-upload-icon {
+      font-size: 22px;
+      margin-bottom: 6px;
+      color: var(--muted);
+    }
+
+    .photo-upload-text {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .photo-upload-text b {
+      color: var(--accent);
+    }
+
+    .photo-preview-thumb {
+      width: 100%;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-top: 8px;
+      display: none;
+    }
+
+    .photo-controls {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .slider-row label {
+      font-size: 10px;
+      color: var(--muted);
+      width: 60px;
+      flex-shrink: 0;
+    }
+
+    .slider-row input[type=range] {
+      flex: 1;
+      accent-color: var(--accent);
+    }
+
+    .slider-row span {
+      font-size: 10px;
+      color: var(--muted);
+      width: 30px;
+      text-align: right;
+    }
+
+    .accent-opts {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .accent-opt {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.15s, transform 0.1s;
+    }
+
+    .accent-opt:hover {
+      transform: scale(1.1);
+    }
+
+    .accent-opt.sel {
+      border-color: white;
+    }
+
+    .export-btn {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: white;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+    }
+
+    .export-btn:hover {
+      opacity: 0.9;
+    }
+
+    .export-btn:active {
+      transform: scale(0.98);
+    }
+
+    .hint {
+      font-size: 10px;
+      color: var(--muted);
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .canvas-area {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      overflow: auto;
+      background: #0a0a0a;
+    }
+
+    .card-wrap {
+      position: relative;
+    }
+
+    .scale-hint {
+      font-size: 10px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 10px;
+      letter-spacing: 0.05em;
+    }
+
+    #card {
+      width: 405px;
+      height: 720px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      background: var(--card-bg);
+      flex-shrink: 0;
+    }
+
+    .c-bg {
+      position: absolute;
+      inset: 0;
+    }
+
+    .c-grid {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 36px 36px;
+    }
+
+    .c-vignette {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 20%, rgba(0, 0, 0, 0.65) 100%);
+    }
+
+    .c-grad {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 65%;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.97) 0%, rgba(0, 0, 0, 0.6) 55%, transparent 100%);
+      z-index: 1;
+    }
+
+    .c-accent {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      z-index: 10;
+    }
+
+    #photo-layer {
+      position: absolute;
+      z-index: 2;
+      bottom: 0;
+      display: flex;
+      align-items: flex-end;
+      pointer-events: none;
+    }
+
+    #photo-layer img {
+      display: block;
+      object-fit: contain;
+      object-position: bottom center;
+    }
+
+    .c-content {
+      position: absolute;
+      z-index: 5;
+      left: 0;
+      right: 0;
+      bottom: 80px;
+      padding: 28px 28px 44px;
+    }
+
+    .c-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .c-edot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .c-eyebrow-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+
+    /* MONTSERRAT para bold caps */
+    .c-headline {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      line-height: 1.0;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+    }
+
+    /* DANCING SCRIPT para la línea cursiva */
+    .c-headline.script {
+      font-family: 'Dancing Script', cursive;
+      font-weight: 700;
+      text-transform: none;
+      letter-spacing: 0;
+      line-height: 1.1;
+    }
+
+    .c-divider {
+      height: 3px;
+      width: 40px;
+      margin: 14px 0;
+    }
+
+    .c-subline {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.82);
+      line-height: 1.45;
+    }
+
+    .c-subline2 {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.82);
+      line-height: 1.45;
+      margin-top: 4px;
+    }
+
+    .c-logo {
+      position: absolute;
+      z-index: 6;
+      bottom: 50px;
+      left: 28px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .c-ldot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .c-ltext {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .c-ltext b {
+      color: rgba(255, 255, 255, 0.65);
+      font-weight: 600;
+    }
+
+    .c-badge {
+      position: absolute;
+      z-index: 6;
+      top: 20px;
+      left: 28px;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border-radius: 4px;
+      border: 1.5px solid;
+    }
+
+    .c-quote-box {
+      position: absolute;
+      z-index: 3;
+      left: 28px;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 1.5px solid;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+      backdrop-filter: blur(2px);
+    }
+
+    .c-quote-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .c-quote-text {
+      font-family: 'Dancing Script', cursive;
+      font-size: 26px;
+      font-weight: 700;
+      color: white;
+      line-height: 1.3;
+    }
+
+    .c-slide {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px 36px;
+    }
+
+    .c-slide-num {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      margin-bottom: 4px;
+      letter-spacing: -0.01em;
+    }
+
+    .c-slide-head {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      color: white;
+      line-height: 1.0;
+      margin-bottom: 3px;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+    }
+
+    .c-slide-head.script {
+      font-family: 'Dancing Script', cursive;
+      font-weight: 700;
+      text-transform: none;
+      letter-spacing: 0;
+      line-height: 1.2;
+    }
+
+    .c-slide-body {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.55);
+      line-height: 1.55;
+      margin-top: 4px;
+    }
+
+    .c-slide-cta {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 20px;
+    }
+
+    .c-list {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 36px 36px 80px;
+    }
+
+    .c-list-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .c-list-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      color: white;
+      line-height: 1.0;
+      margin-bottom: 22px;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+    }
+
+    .c-list-title .script-line {
+      font-family: 'Dancing Script', cursive;
+      font-weight: 700;
+      text-transform: none;
+      letter-spacing: 0;
+      line-height: 1.2;
+      display: block;
+    }
+
+    .c-list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .c-list-n {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 1.1;
+      flex-shrink: 0;
+      width: 22px;
+    }
+
+    .c-list-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.4;
+      padding-top: 3px;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 3px;
+    }
+
+    @media (max-width: 720px) {
+      .app {
+        flex-direction: column;
+        overflow: visible;
+      }
+
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+        overflow-y: visible;
+      }
+
+      .canvas-area {
+        padding: 24px 16px;
+        flex: none;
+      }
+
+      #card {
+        width: 270px;
+        height: 480px;
+      }
+
+      .c-content {
+        bottom: 54px;
+        padding: 20px 20px 30px;
+      }
+
+      .c-logo {
+        bottom: 34px;
+        left: 20px;
+      }
+
+      .scale-hint {
+        font-size: 9px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo-dot"></div>
+    <h1>Ariel Tapia</h1>
+    <span>· Editor de Portadas</span>
+  </header>
+
+  <div class="app">
+    <div class="sidebar">
+
+      <div>
+        <div class="section-title">Tipo de portada</div>
+        <div class="tabs" id="tabs">
+          <button class="tab active" data-t="hero">Hero + foto</button>
+          <button class="tab" data-t="quote">Cita / dolor</button>
+          <button class="tab" data-t="slide">Slide editorial</button>
+          <button class="tab" data-t="list">Lista numerada</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">Tu foto</div>
+        <label class="photo-upload" id="photo-drop" for="photo-input">
+          <input type="file" accept="image/*" id="photo-input">
+          <div class="photo-upload-icon">📷</div>
+          <div class="photo-upload-text">Tocá para elegir foto<br><b>PNG con fondo transparente</b> funciona mejor</div>
+          <img class="photo-preview-thumb" id="thumb">
+        </label>
+        <div class="photo-controls" id="photo-controls" style="display:none; margin-top:12px;">
+          <div class="slider-row">
+            <label>Tamaño</label>
+            <input type="range" id="photo-size" min="50" max="130" value="90" step="1">
+            <span id="photo-size-val">90%</span>
+          </div>
+          <div class="slider-row">
+            <label>Posición H</label>
+            <input type="range" id="photo-x" min="-50" max="50" value="0" step="1">
+            <span id="photo-x-val">0</span>
+          </div>
+          <div class="slider-row">
+            <label>Subir/bajar</label>
+            <input type="range" id="photo-y" min="-20" max="60" value="10" step="1">
+            <span id="photo-y-val">10</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">Contenido</div>
+        <div class="field-group" id="fields"></div>
+      </div>
+
+      <div>
+        <div class="section-title">Color de acento</div>
+        <div class="accent-opts">
+          <div class="accent-opt sel" style="background:#E85A0A;" data-c="#E85A0A"></div>
+          <div class="accent-opt" style="background:#ffffff; border:1px solid #333;" data-c="#ffffff"></div>
+          <div class="accent-opt" style="background:#e53e3e;" data-c="#e53e3e"></div>
+          <div class="accent-opt" style="background:#38bdf8;" data-c="#38bdf8"></div>
+          <div class="accent-opt" style="background:#a78bfa;" data-c="#a78bfa"></div>
+          <div class="accent-opt" style="background:#34d399;" data-c="#34d399"></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-title">Fondo de la card</div>
+        <div class="accent-opts">
+          <div class="accent-opt sel" style="background:#1c1a17; border:1px solid #444;" data-bg="#1c1a17"></div>
+          <div class="accent-opt" style="background:#0f0f0f; border:1px solid #333;" data-bg="#0f0f0f"></div>
+          <div class="accent-opt" style="background:#0d1f1a;" data-bg="#0d1f1a"></div>
+          <div class="accent-opt" style="background:#0d1120;" data-bg="#0d1120"></div>
+        </div>
+      </div>
+
+      <div>
+        <button class="export-btn" id="export-btn">⬇ Exportar como imagen</button>
+        <div class="hint" style="margin-top:8px;">Se guarda en tu carpeta de descargas.<br>Resolución: 1080 × 1920 px
+        </div>
+      </div>
+
+    </div>
+
+    <div class="canvas-area">
+      <div class="card-wrap">
+        <div id="card">
+          <div class="c-bg" id="c-bg"></div>
+          <div class="c-grid"></div>
+          <div class="c-vignette"></div>
+          <div class="c-grad" id="c-grad"></div>
+          <div id="photo-layer"><img id="photo-img" src="" alt=""></div>
+          <div id="card-content"></div>
+          <div class="c-accent" id="c-accent"></div>
+        </div>
+        <div class="scale-hint">Preview · 405 × 720px → exporta 1080 × 1920px</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let accent = '#E85A0A';
+    let cardBg = '#1c1a17';
+    let currentTemplate = 'hero';
+    let photoSrc = null;
+    let photoSize = 90;
+    let photoX = 0;
+    let photoY = 10;
+
+    const templates = {
+      hero: [
+        { id: 'eyebrow', label: 'Eyebrow (caps pequeño)', val: 'Ariel Tapia', type: 'text' },
+        { id: 'headline1', label: 'Titular línea 1 (bold caps)', val: 'Presencial Vs', type: 'text' },
+        { id: 'headline2', label: 'Titular línea 2 (cursiva)', val: 'Online', type: 'text' },
+        { id: 'subline', label: 'Subtítulo línea 1', val: 'Te enseño a facturar 10k USD', type: 'text' },
+        { id: 'subline2', label: 'Subtítulo línea 2', val: 'al mes online', type: 'text' },
+        { id: 'logo', label: 'Firma / logo texto', val: 'Ariel Tapia · Mentor de Trainers', type: 'text' },
+      ],
+      quote: [
+        { id: 'eyebrow', label: 'Eyebrow / badge', val: '¿Te pasa esto?', type: 'text' },
+        { id: 'qlabel', label: 'Label de la cita', val: 'Lo que me decían', type: 'text' },
+        { id: 'quote', label: 'Cita / frase de dolor', val: '"Entreno bien,\npero no vendo."', type: 'textarea' },
+        { id: 'headline1', label: 'Tu respuesta (línea 1, bold)', val: 'No es tu', type: 'text' },
+        { id: 'headline2', label: 'Tu respuesta (línea 2, cursiva)', val: 'entrenamiento.', type: 'text' },
+        { id: 'subline', label: 'Remate línea 1', val: 'es tu venta. y eso se aprende.', type: 'text' },
+        { id: 'subline2', label: 'Remate línea 2', val: '', type: 'text' },
+      ],
+      slide: [
+        { id: 'slidenum', label: 'Número / ítem', val: '01', type: 'text' },
+        { id: 'headline1', label: 'Titular grande (bold caps)', val: '20 AÑOS', type: 'text' },
+        { id: 'headline2', label: 'Titular grande (cursiva)', val: 'en ventas.', type: 'text' },
+        { id: 'body', label: 'Cuerpo del slide', val: 'Lo que aprendí cerrando cara a cara, hoy lo enseño para que vendas online.', type: 'textarea' },
+        { id: 'cta', label: 'CTA / cierre', val: 'mirá el video →', type: 'text' },
+      ],
+      list: [
+        { id: 'eyebrow', label: 'Eyebrow', val: 'Para entrenadores personales', type: 'text' },
+        { id: 'listtitle1', label: 'Título línea 1 (bold caps)', val: 'La peor forma', type: 'text' },
+        { id: 'listtitle2', label: 'Título línea 2 (cursiva)', val: 'de vender tus servicios.', type: 'text' },
+        { id: 'item1', label: 'Ítem 1', val: 'Mandar el precio por DM sin contexto', type: 'text' },
+        { id: 'item2', label: 'Ítem 2', val: 'Hablar cuando el otro ya dijo que sí', type: 'text' },
+        { id: 'item3', label: 'Ítem 3', val: 'Comprar cursos en vez de practicar', type: 'text' },
+        { id: 'item4', label: 'Ítem 4 (opcional)', val: '', type: 'text' },
+      ]
+    };
+
+    function getVals() {
+      const v = {};
+      document.querySelectorAll('#fields input, #fields textarea').forEach(el => { v[el.dataset.id] = el.value; });
+      return v;
+    }
+
+    function hs(str, base) {
+      if (!str) return base;
+      const l = str.length;
+      if (l <= 5) return base + 8;
+      if (l <= 8) return base + 4;
+      if (l <= 12) return base;
+      if (l <= 18) return base - 4;
+      return base - 8;
+    }
+
+    // Dancing Script visualmente más chica — necesita más tamaño base
+    function hsScript(str, base) {
+      if (!str) return base;
+      const l = str.length;
+      if (l <= 5) return base + 14;
+      if (l <= 8) return base + 8;
+      if (l <= 12) return base + 4;
+      if (l <= 18) return base;
+      return base - 6;
+    }
+
+    function renderCard() {
+      const v = getVals();
+      const cc = document.getElementById('card-content');
+      cc.innerHTML = '';
+
+      document.getElementById('c-bg').style.background = cardBg;
+      document.getElementById('c-accent').style.background = accent;
+      document.getElementById('c-grad').style.display = '';
+
+      // photo layer
+      const pl = document.getElementById('photo-layer');
+      if (photoSrc) {
+        pl.style.cssText = 'position:absolute;inset:0;z-index:2;overflow:hidden;pointer-events:none;display:block;';
+        const img = document.getElementById('photo-img');
+        img.src = photoSrc;
+        const imgH = 720 * (photoSize / 100);
+        const vOffset = photoY * 6;
+        img.style.cssText = `position:absolute;bottom:${vOffset}px;height:${imgH}px;width:auto;max-width:none;left:50%;transform:translateX(calc(-50% + ${photoX * 3}px));object-fit:contain;object-position:bottom center;display:block;`;
+      } else {
+        pl.style.display = 'none';
+      }
+
+      if (currentTemplate === 'hero') {
+        cc.innerHTML = `
+          <div class="c-logo">
+            <div class="c-ldot" style="background:${accent}"></div>
+            <div class="c-ltext"><b>${(v.logo || 'Ariel Tapia').split('·')[0].trim()}</b>${(v.logo || '').includes('·') ? ' · ' + v.logo.split('·').slice(1).join('·').trim() : ''}</div>
+          </div>
+          <div class="c-content">
+            <div class="c-eyebrow">
+              <div class="c-edot" style="background:${accent}"></div>
+              <div class="c-eyebrow-text" style="color:${accent}">${v.eyebrow || ''}</div>
+            </div>
+            <div class="c-headline" style="font-size:${hs(v.headline1, 52)}px">${v.headline1 || ''}</div>
+            <div class="c-headline script" style="font-size:${hsScript(v.headline2, 58)}px;color:${accent}">${v.headline2 || ''}</div>
+            <div class="c-divider" style="background:${accent}"></div>
+            <div class="c-subline" style="font-size:16px">${v.subline || ''}</div>
+            ${v.subline2 ? `<div class="c-subline2" style="font-size:16px">${v.subline2}</div>` : ''}
+          </div>`;
+      }
+
+      else if (currentTemplate === 'quote') {
+        const qHtml = (v.quote || '').split('\n').map(l => `<div>${l}</div>`).join('');
+        cc.innerHTML = `
+          <div class="c-badge" style="color:${accent};border-color:${accent}44">${v.eyebrow || ''}</div>
+          <div class="c-quote-box" style="border-color:${accent}33;background:rgba(0,0,0,0.3)">
+            <div class="c-quote-label" style="color:${accent}">${v.qlabel || ''}</div>
+            <div class="c-quote-text">${qHtml}</div>
+          </div>
+          <div class="c-logo">
+            <div class="c-ldot" style="background:${accent}"></div>
+            <div class="c-ltext"><b>Ariel Tapia</b> · Mentor</div>
+          </div>
+          <div class="c-content">
+            <div class="c-eyebrow">
+              <div class="c-edot" style="background:${accent}"></div>
+              <div class="c-eyebrow-text" style="color:${accent}">Ariel Tapia</div>
+            </div>
+            <div class="c-headline" style="font-size:${hs(v.headline1, 48)}px">${v.headline1 || ''}</div>
+            <div class="c-headline script" style="font-size:${hsScript(v.headline2, 54)}px;color:${accent}">${v.headline2 || ''}</div>
+            <div class="c-divider" style="background:${accent}"></div>
+            <div class="c-subline" style="font-size:15px">${v.subline || ''}</div>
+            ${v.subline2 ? `<div class="c-subline2" style="font-size:15px">${v.subline2}</div>` : ''}
+          </div>`;
+      }
+
+      else if (currentTemplate === 'slide') {
+        document.getElementById('c-grad').style.display = 'none';
+        cc.innerHTML = `
+          <div class="c-slide">
+            <div class="c-slide-num" style="color:${accent}">${v.slidenum || '01'}</div>
+            <div class="c-slide-head" style="font-size:${hs(v.headline1, 58)}px">${v.headline1 || ''}</div>
+            <div class="c-slide-head script" style="font-size:${hsScript(v.headline2, 62)}px;color:${accent}">${v.headline2 || ''}</div>
+            <div class="c-divider" style="background:${accent};margin:18px 0;width:48px;height:3px;"></div>
+            <div class="c-slide-body">${(v.body || '').replace(/\n/g, '<br>')}</div>
+            <div class="c-slide-cta" style="color:${accent}">${v.cta || ''}</div>
+          </div>
+          <div class="c-logo">
+            <div class="c-ldot" style="background:${accent}"></div>
+            <div class="c-ltext"><b>Ariel Tapia</b> · Mentor de Trainers</div>
+          </div>`;
+      }
+
+      else if (currentTemplate === 'list') {
+        document.getElementById('c-grad').style.display = 'none';
+        const items = [v.item1, v.item2, v.item3, v.item4].filter(Boolean);
+        cc.innerHTML = `
+          <div class="c-list">
+            <div class="c-list-eyebrow" style="color:${accent}">${v.eyebrow || ''}</div>
+            <div class="c-list-title" style="font-size:${hs(v.listtitle1 || '', 42)}px">
+              ${v.listtitle1 || ''}
+              <span class="script-line" style="font-size:${hsScript(v.listtitle2 || '', 46)}px;color:${accent}">${v.listtitle2 || ''}</span>
+            </div>
+            ${items.map((item, i) => `
+              <div class="c-list-item">
+                <div class="c-list-n" style="color:${accent}">${i + 1}</div>
+                <div class="c-list-text">${item}</div>
+              </div>`).join('')}
+          </div>
+          <div class="c-logo">
+            <div class="c-ldot" style="background:${accent}"></div>
+            <div class="c-ltext"><b>Ariel Tapia</b> · Mentor de Trainers</div>
+          </div>`;
+      }
+    }
+
+    function renderFields(t) {
+      const panel = document.getElementById('fields');
+      panel.innerHTML = '';
+      templates[t].forEach(f => {
+        const wrap = document.createElement('div');
+        wrap.className = 'field';
+        const lbl = document.createElement('label');
+        lbl.textContent = f.label;
+        wrap.appendChild(lbl);
+        let inp = f.type === 'textarea' ? document.createElement('textarea') : document.createElement('input');
+        if (f.type !== 'textarea') inp.type = 'text';
+        inp.value = f.val;
+        inp.dataset.id = f.id;
+        inp.addEventListener('input', renderCard);
+        wrap.appendChild(inp);
+        panel.appendChild(wrap);
+      });
+    }
+
+    document.getElementById('tabs').addEventListener('click', e => {
+      const btn = e.target.closest('.tab');
+      if (!btn) return;
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      currentTemplate = btn.dataset.t;
+      renderFields(currentTemplate);
+      renderCard();
+    });
+
+    document.querySelectorAll('.accent-opt[data-c]').forEach(opt => {
+      opt.addEventListener('click', () => {
+        document.querySelectorAll('.accent-opt[data-c]').forEach(o => o.classList.remove('sel'));
+        opt.classList.add('sel');
+        accent = opt.dataset.c;
+        renderCard();
+      });
+    });
+
+    document.querySelectorAll('.accent-opt[data-bg]').forEach(opt => {
+      opt.addEventListener('click', () => {
+        document.querySelectorAll('.accent-opt[data-bg]').forEach(o => o.classList.remove('sel'));
+        opt.classList.add('sel');
+        cardBg = opt.dataset.bg;
+        renderCard();
+      });
+    });
+
+    document.getElementById('photo-input').addEventListener('change', e => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = ev => {
+        photoSrc = ev.target.result;
+        document.getElementById('thumb').src = photoSrc;
+        document.getElementById('thumb').style.display = 'block';
+        document.getElementById('photo-controls').style.display = 'flex';
+        document.getElementById('photo-controls').style.flexDirection = 'column';
+        renderCard();
+      };
+      reader.readAsDataURL(file);
+    });
+
+    ['photo-size', 'photo-x', 'photo-y'].forEach(id => {
+      document.getElementById(id).addEventListener('input', e => {
+        const val = parseInt(e.target.value);
+        if (id === 'photo-size') { photoSize = val; document.getElementById('photo-size-val').textContent = val + '%'; }
+        if (id === 'photo-x') { photoX = val; document.getElementById('photo-x-val').textContent = val; }
+        if (id === 'photo-y') { photoY = val; document.getElementById('photo-y-val').textContent = val; }
+        renderCard();
+      });
+    });
+
+    document.getElementById('export-btn').addEventListener('click', async () => {
+      const btn = document.getElementById('export-btn');
+      btn.textContent = 'Exportando...';
+      btn.disabled = true;
+      try {
+        const canvas = await html2canvas(document.getElementById('card'), {
+          scale: 1080 / 405,
+          useCORS: true,
+          allowTaint: true,
+          backgroundColor: cardBg,
+          width: 405,
+          height: 720,
+          logging: false,
+        });
+        const link = document.createElement('a');
+        link.download = `portada-arieltapia-${currentTemplate}-${new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-')}.png`;
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+      } catch (err) {
+        alert('Error al exportar. Probá con una foto más pequeña.');
+        console.error(err);
+      }
+      btn.textContent = '⬇ Exportar como imagen';
+      btn.disabled = false;
+    });
+
+    renderFields('hero');
+    renderCard();
+  </script>
+</body>
+
+</html>
