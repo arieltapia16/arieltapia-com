@@ -1048,8 +1048,11 @@
       const btn = document.getElementById('export-btn');
       btn.textContent = 'Exportando...';
       btn.disabled = true;
+      const cardEl = document.getElementById('card');
+      const prevTransform = cardEl.style.transform;
+      cardEl.style.transform = 'none';
       try {
-        const canvas = await html2canvas(document.getElementById('card'), {
+        const canvas = await html2canvas(cardEl, {
           scale: 1080 / 405,
           useCORS: true,
           allowTaint: true,
@@ -1065,6 +1068,8 @@
       } catch (err) {
         alert('Error al exportar. Probá con una foto más pequeña.');
         console.error(err);
+      } finally {
+        cardEl.style.transform = prevTransform;
       }
       btn.textContent = '⬇ Exportar como imagen';
       btn.disabled = false;
