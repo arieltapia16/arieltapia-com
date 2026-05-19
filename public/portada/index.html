@@ -1051,6 +1051,7 @@
       const cardEl = document.getElementById('card');
       const prevTransform = cardEl.style.transform;
       cardEl.style.transform = 'none';
+      await new Promise(r => setTimeout(r, 50)); // let layout settle
       try {
         const canvas = await html2canvas(cardEl, {
           scale: 1080 / 405,
@@ -1061,10 +1062,18 @@
           height: 720,
           logging: false,
         });
-        const link = document.createElement('a');
-        link.download = `portada-arieltapia-${currentTemplate}-${new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-')}.png`;
-        link.href = canvas.toDataURL('image/png');
-        link.click();
+        const dataUrl = canvas.toDataURL('image/png');
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        if (isIOS) {
+          // iOS Safari no soporta link.click() para descargar — abrir en nueva pestaña
+          const w = window.open();
+          w.document.write('<img src="' + dataUrl + '" style="max-width:100%"><p style="font-family:sans-serif;color:#555;font-size:14px">Mantené presionada la imagen → Guardar en Fotos</p>');
+        } else {
+          const link = document.createElement('a');
+          link.download = `portada-arieltapia-${currentTemplate}-${new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-')}.png`;
+          link.href = dataUrl;
+          link.click();
+        }
       } catch (err) {
         alert('Error al exportar. Probá con una foto más pequeña.');
         console.error(err);
