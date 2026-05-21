@@ -314,7 +314,7 @@ export default function Home() {
           Dejá de imitar reels.<br/>Volvé a vender como vos.
         </p>
         <p className="text-white/50 text-sm text-center mb-16 max-w-sm leading-relaxed">
-          Tus 20 años de calle no se reemplazan con un trípode.
+          Tus años entrenando a personas no se reemplazan con un trípode.
           La pregunta no es si tenés el oficio para cobrar lo que cobran los grandes online.
           {' '}<span className="text-white/70">La pregunta es si tenés el sistema para traducirlo al canal digital.</span>
         </p>
