@@ -178,7 +178,7 @@ export default function Home() {
 
         {/* Pain points */}
         <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-10">¿Te suena familiar?</p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl mb-10">
+        <div className="flex flex-col gap-3 w-full max-w-2xl mb-10">
           {[
             {
               img: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80',
@@ -201,22 +201,33 @@ export default function Home() {
               text: 'Llegaste a agenda llena por mérito. Pero si te enfermás, no entra. Si tomás vacaciones, no entra. Cada mes empieza de cero con la próxima cuota cobrada.',
             },
           ].map((item, i) => (
-            <div key={i} className="border border-white/10 overflow-hidden">
-              <div className="relative h-44">
+            <div key={i} className="flex border border-white/10 overflow-hidden">
+              <div className="relative w-32 sm:w-44 min-h-[140px] shrink-0">
                 <Image src={item.img} alt="" fill className="object-cover" />
-                <div className="absolute inset-0 bg-black/55" />
+                <div className="absolute inset-0 bg-black/40" />
               </div>
-              <div className="p-5">
+              <div className="p-4 sm:p-5 flex flex-col justify-center">
                 <p className="text-white font-semibold text-sm mb-2">{item.title}</p>
                 <p className="text-white/55 text-sm leading-relaxed">{item.text}</p>
               </div>
             </div>
           ))}
         </div>
-        <p className="text-white/40 text-sm text-center mb-20 max-w-sm">
+        <p className="text-white/40 text-sm text-center mb-10 max-w-sm">
           Trabajé con trainers que vendían muy bien en persona y no podían replicarlo online.{' '}
           <span className="text-white/60">Ese es exactamente el problema que resuelve la mentoría.</span>
         </p>
+
+        {/* CTA 1 */}
+        <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md mb-20">
+          <a href="#contacto" className="flex-1 text-center bg-[#FF5C00] text-white text-sm font-semibold py-3 px-5 hover:bg-[#e05200] transition-colors tracking-widest uppercase">
+            Quiero salir de esta trampa
+          </a>
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex-1 text-center border border-white/20 text-white/60 text-sm font-semibold py-3 px-5 hover:border-white/50 hover:text-white transition-colors flex items-center justify-center gap-2">
+            <FaWhatsapp size={15} />
+            Escribime por WhatsApp
+          </a>
+        </div>
 
         {/* Benefits */}
         <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-4">La mentoría 1:1</p>
@@ -243,6 +254,17 @@ export default function Home() {
           ))}
         </div>
 
+        {/* CTA 2 */}
+        <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md mb-20">
+          <a href="#contacto" className="flex-1 text-center bg-[#FF5C00] text-white text-sm font-semibold py-3 px-5 hover:bg-[#e05200] transition-colors tracking-widest uppercase">
+            Quiero trabajar esto con Ariel
+          </a>
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex-1 text-center border border-white/20 text-white/60 text-sm font-semibold py-3 px-5 hover:border-white/50 hover:text-white transition-colors flex items-center justify-center gap-2">
+            <FaWhatsapp size={15} />
+            Escribime por WhatsApp
+          </a>
+        </div>
+
         {/* Why 1:1 */}
         <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-10">Por qué 1:1 y no un curso</p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 w-full max-w-2xl text-center mb-20">
@@ -257,6 +279,17 @@ export default function Home() {
               <p className="text-white/45 text-sm leading-relaxed">{item.desc}</p>
             </div>
           ))}
+        </div>
+
+        {/* CTA 3 */}
+        <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md mb-20">
+          <a href="#contacto" className="flex-1 text-center bg-[#FF5C00] text-white text-sm font-semibold py-3 px-5 hover:bg-[#e05200] transition-colors tracking-widest uppercase">
+            Quiero la llamada de calificación
+          </a>
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex-1 text-center border border-white/20 text-white/60 text-sm font-semibold py-3 px-5 hover:border-white/50 hover:text-white transition-colors flex items-center justify-center gap-2">
+            <FaWhatsapp size={15} />
+            Escribime por WhatsApp
+          </a>
         </div>
 
         {/* La promesa */}
@@ -286,7 +319,7 @@ export default function Home() {
           {' '}<span className="text-white/70">La pregunta es si tenés el sistema para traducirlo al canal digital.</span>
         </p>
 
-        <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-4">Aplicar al programa</p>
+        <p id="contacto" className="text-white/40 text-xs tracking-[0.3em] uppercase mb-4">Aplicar al programa</p>
         <h2 className="font-serif text-white text-3xl sm:text-4xl font-semibold text-center mb-3">
           Pedí tu llamada de calificación
         </h2>
