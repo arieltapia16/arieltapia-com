@@ -91,6 +91,9 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Bottom gradient: smooth transition to dark bg */}
+        <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-[#0D0D0D] to-transparent z-[5]" />
+
         {/* Scroll cue */}
         <div className="relative z-10 pb-8 flex justify-center">
           <div className="w-px h-10 bg-white/25" />
@@ -110,11 +113,11 @@ export default function Home() {
           ].map((text, i) => (
             <div key={i} className="flex gap-4 items-start">
               <span className="text-[#FF5C00] mt-0.5 shrink-0">→</span>
-              <p className="text-white/70 text-sm leading-relaxed">{text}</p>
+              <p className="text-white/70 text-[1.05rem] leading-relaxed">{text}</p>
             </div>
           ))}
         </div>
-        <p className="text-white/30 text-xs text-center mt-10 max-w-xs">
+        <p className="text-white/30 text-sm text-center mt-10 max-w-xs">
           Si leíste eso y sentiste que lo escribí sobre vos, seguí leyendo.
         </p>
       </section>
