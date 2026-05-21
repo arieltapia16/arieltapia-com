@@ -141,6 +141,25 @@ export default function Home() {
         </p>
       </section>
 
+      {/* Cinematic break */}
+      <div className="relative h-[260px] sm:h-[340px] overflow-hidden">
+        <Image
+          src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=1400&q=80"
+          alt=""
+          fill
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-black/70" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+          <p className="font-serif text-white text-2xl sm:text-3xl md:text-4xl font-bold max-w-xl leading-snug">
+            Tu oficio vale lo que cobran<br/>los grandes online.
+          </p>
+          <p className="text-[#FF5C00] font-semibold text-base sm:text-lg mt-3">
+            Lo que falta es el sistema para traducirlo.
+          </p>
+        </div>
+      </div>
+
       {/* Form section */}
       <section className="py-20 px-6 flex flex-col items-center">
 
@@ -158,14 +177,36 @@ export default function Home() {
         <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-10">¿Te suena familiar?</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl mb-10">
           {[
-            { icon: '💬', text: 'En el gym cerrás sin problema. Por Instagram te responden "gracias, lo pienso" y desaparecen.' },
-            { icon: '📱', text: 'Sabés que tenés que estar en redes pero no sabés qué publicar ni cómo convertir eso en plata.' },
-            { icon: '😬', text: 'Te da vergüenza poner el precio. Esperás que el otro lo pida primero.' },
-            { icon: '🌐', text: 'Querés dar el salto al digital pero el "¿por dónde empiezo?" te tiene paralizado hace meses.' },
+            {
+              img: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80',
+              title: 'Cerrás al 80% en el gym. Al 0% en el chat.',
+              text: 'En el gym cerrás sin pensarlo. En el chat dudás, te freezás, mandás el precio y el cliente desaparece. Son como dos profesionales distintos haciendo el mismo trabajo.',
+            },
+            {
+              img: 'https://images.unsplash.com/photo-1758599880935-516d241bc5f3?auto=format&fit=crop&w=800&q=80',
+              title: 'Subís reels copiando a alguien con la mitad de tu oficio.',
+              text: 'Copiás hooks que viste en Instagram. Al final del día no te reconocés en tu propio contenido. Tenés 20 años de calle y terminás sonando a un pibe de 22 con un trípode.',
+            },
+            {
+              img: 'https://images.unsplash.com/photo-1719239163994-6413670c4e9f?auto=format&fit=crop&w=800&q=80',
+              title: 'Colegas con menos oficio facturan lo que vos no lográs tocar.',
+              text: 'Menos certificaciones, peor metodología, más facturación online. Sabés que tenés el cuerpo, los años y los clientes que venden. No tenés cómo traducirlo.',
+            },
+            {
+              img: 'https://images.unsplash.com/photo-1584466977773-e625c37cdd50?auto=format&fit=crop&w=800&q=80',
+              title: 'Tu techo no es el oficio. Son las horas.',
+              text: 'Llegaste a agenda llena por mérito. Pero si te enfermás, no entra. Si tomás vacaciones, no entra. Cada mes empieza de cero con la próxima cuota cobrada.',
+            },
           ].map((item, i) => (
-            <div key={i} className="flex gap-4 p-5 border border-white/10 bg-white/[0.03]">
-              <span className="text-2xl shrink-0">{item.icon}</span>
-              <p className="text-white/60 text-sm leading-relaxed">{item.text}</p>
+            <div key={i} className="border border-white/10 overflow-hidden">
+              <div className="relative h-44">
+                <Image src={item.img} alt="" fill className="object-cover" />
+                <div className="absolute inset-0 bg-black/55" />
+              </div>
+              <div className="p-5">
+                <p className="text-white font-semibold text-sm mb-2">{item.title}</p>
+                <p className="text-white/55 text-sm leading-relaxed">{item.text}</p>
+              </div>
             </div>
           ))}
         </div>
