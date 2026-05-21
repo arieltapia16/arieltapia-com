@@ -80,13 +80,13 @@ export default function Home() {
               <span className="text-white/50 text-xs tracking-[0.2em] uppercase">Ahora mismo</span>
             </div>
             <h1 className="font-serif text-white text-3xl sm:text-4xl md:text-5xl font-bold leading-tight max-w-xl">
-              Ayudando a personal trainers a vender digital 1:1
+              Cerrás al 80% en el gym. En el chat, sos otra persona.
             </h1>
             <p className="text-white/60 text-base sm:text-lg mt-4 max-w-sm mx-auto">
-              Me dedico a potenciar la venta en redes. Sin trucos. Con método.
+              La mentoría 1:1 para entrenadores con agenda llena que no logran cerrar por DM.
             </p>
             <p className="text-white/40 text-sm mt-3 max-w-sm mx-auto">
-              ¿Sos del rubro? Anotate y te cuento cómo.
+              Sin reels copiados. Sin pauta. Con el Sistema 4 Steps.
             </p>
           </div>
         </div>
@@ -95,6 +95,28 @@ export default function Home() {
         <div className="relative z-10 pb-8 flex justify-center">
           <div className="w-px h-10 bg-white/25" />
         </div>
+      </section>
+
+      {/* Para quién es esto */}
+      <section className="py-20 px-6 flex flex-col items-center border-b border-white/5">
+        <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-10">Para quién es esto</p>
+        <div className="flex flex-col gap-4 w-full max-w-lg mb-0">
+          {[
+            'Tenés 5 o más años entrenando y agenda llena. Tu techo no es el oficio — es el tiempo.',
+            'Cerrás al 70-90% en el gimnasio y al 0-5% en el chat. Sabés que algo falla, pero no qué.',
+            'Ya intentaste reels, un community manager o un curso online. No funcionó.',
+            'Ves colegas con menos oficio facturando online lo que vos no lográs tocar. Eso te come por dentro.',
+            'Sabés que tenés el cuerpo, los resultados y los años. Lo que no tenés es cómo traducirlo al digital.',
+          ].map((text, i) => (
+            <div key={i} className="flex gap-4 items-start">
+              <span className="text-[#FF5C00] mt-0.5 shrink-0">→</span>
+              <p className="text-white/70 text-sm leading-relaxed">{text}</p>
+            </div>
+          ))}
+        </div>
+        <p className="text-white/30 text-xs text-center mt-10 max-w-xs">
+          Si leíste eso y sentiste que lo escribí sobre vos, seguí leyendo.
+        </p>
       </section>
 
       {/* Who I am section */}
@@ -193,12 +215,39 @@ export default function Home() {
           ))}
         </div>
 
-        <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-4">Contacto</p>
+        {/* La promesa */}
+        <div className="w-full max-w-lg border border-[#FF5C00]/30 bg-[#FF5C00]/5 px-8 py-8 mb-20 text-center">
+          <p className="text-[#FF5C00] text-xs tracking-[0.3em] uppercase mb-4">La promesa</p>
+          <p className="font-serif text-white text-2xl sm:text-3xl font-bold leading-snug mb-4">
+            USD 10K mensuales adicionales en digital, en 4 meses.
+          </p>
+          <p className="text-white/50 text-sm leading-relaxed mb-6">
+            Sin pauta paga. Sin reinventarte. Sin imitar a nadie.{' '}
+            A través del <span className="text-white font-semibold">Sistema 4 Steps</span>:{' '}
+            el proceso de cierre por chat construido sobre 20 años de venta cara a cara.
+          </p>
+          <p className="text-white/30 text-xs">
+            El gimnasio sigue. El digital se suma. No tenés que elegir.
+          </p>
+        </div>
+
+        {/* Identity angle pre-CTA */}
+        <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-6">La decisión</p>
+        <p className="font-serif text-white text-2xl sm:text-3xl font-semibold text-center mb-5 max-w-md leading-snug">
+          Dejá de imitar reels.<br/>Volvé a vender como vos.
+        </p>
+        <p className="text-white/50 text-sm text-center mb-16 max-w-sm leading-relaxed">
+          Tus 20 años de calle no se reemplazan con un trípode.
+          La pregunta no es si tenés el oficio para cobrar lo que cobran los grandes online.
+          {' '}<span className="text-white/70">La pregunta es si tenés el sistema para traducirlo al canal digital.</span>
+        </p>
+
+        <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-4">Aplicar al programa</p>
         <h2 className="font-serif text-white text-3xl sm:text-4xl font-semibold text-center mb-3">
-          ¿Trabajamos juntos?
+          Pedí tu llamada de calificación
         </h2>
         <p className="text-white/40 text-sm text-center mb-10 max-w-xs">
-          Si sos entrenador o tu rubro todavía no está, escribime. Siempre escucho.
+          30 minutos. Sin compromiso. Vemos si el Sistema 4 Steps aplica a tu situación.
         </p>
 
         {!submitted ? (
@@ -222,7 +271,7 @@ export default function Home() {
             <textarea
               value={rubro}
               onChange={(e) => setRubro(e.target.value)}
-              placeholder="Contame a qué te dedicás y qué querés lograr..."
+              placeholder="¿Cuántos años entrenando? ¿Agenda llena presencial? ¿Qué intentaste en digital hasta ahora?"
               rows={4}
               className="bg-white/5 text-white placeholder-white/25 px-4 py-3 border border-white/10 outline-none focus:border-[#FF5C00] transition text-sm resize-none"
             />
@@ -231,12 +280,12 @@ export default function Home() {
               disabled={loading}
               className="bg-[#FF5C00] text-white text-sm font-semibold py-3 px-6 hover:bg-[#e05200] transition-colors tracking-widest uppercase disabled:opacity-50"
             >
-              {loading ? 'Enviando...' : 'Mandame un mensaje'}
+              {loading ? 'Enviando...' : 'Quiero la llamada de calificación'}
             </button>
           </form>
         ) : (
           <p className="text-[#FF5C00] text-base text-center">
-            ¡Mensaje recibido! Te respondo a la brevedad.
+            ¡Recibido! Te contacto en las próximas 24hs para coordinar la llamada.
           </p>
         )}
 
