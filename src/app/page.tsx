@@ -132,6 +132,67 @@ export default function Home() {
           </p>
         </div>
 
+        {/* Pain points */}
+        <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-10">¿Te suena familiar?</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl mb-10">
+          {[
+            { icon: '💬', text: 'En el gym cerrás sin problema. Por Instagram te responden "gracias, lo pienso" y desaparecen.' },
+            { icon: '📱', text: 'Sabés que tenés que estar en redes pero no sabés qué publicar ni cómo convertir eso en plata.' },
+            { icon: '😬', text: 'Te da vergüenza poner el precio. Esperás que el otro lo pida primero.' },
+            { icon: '🌐', text: 'Querés dar el salto al digital pero el "¿por dónde empiezo?" te tiene paralizado hace meses.' },
+          ].map((item, i) => (
+            <div key={i} className="flex gap-4 p-5 border border-white/10 bg-white/[0.03]">
+              <span className="text-2xl shrink-0">{item.icon}</span>
+              <p className="text-white/60 text-sm leading-relaxed">{item.text}</p>
+            </div>
+          ))}
+        </div>
+        <p className="text-white/40 text-sm text-center mb-20 max-w-sm">
+          Trabajé con trainers que vendían muy bien en persona y no podían replicarlo online.{' '}
+          <span className="text-white/60">Ese es exactamente el problema que resuelve la mentoría.</span>
+        </p>
+
+        {/* Benefits */}
+        <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-4">La mentoría 1:1</p>
+        <h2 className="font-serif text-white text-3xl sm:text-4xl font-semibold text-center mb-3 max-w-md">
+          Lo que vas a trabajar conmigo
+        </h2>
+        <p className="text-white/40 text-sm text-center mb-12 max-w-xs">
+          No un curso grabado. No un grupo. Vos y yo, trabajando tu caso puntual.
+        </p>
+        <div className="flex flex-col gap-8 w-full max-w-lg mb-20">
+          {[
+            { num: '01', title: 'Cierre en el chat', desc: 'Llevás una conversación de Instagram o WhatsApp desde el primer mensaje hasta el sí. Sin presionar, sin sonar a vendedor.' },
+            { num: '02', title: 'Precio sin vergüenza', desc: 'Trabajamos tu relación con el dinero y cómo presentar tus tarifas para que generen confianza, no susto.' },
+            { num: '03', title: 'Contenido que atrae clientes', desc: 'Definís qué publicar, cuándo y cómo para que tu perfil haga el trabajo de prospección por vos.' },
+            { num: '04', title: 'Tu sistema de ventas digital', desc: 'Construís un proceso repetible: de seguidor a consulta, de consulta a cliente. Sin depender del algoritmo.' },
+          ].map((item) => (
+            <div key={item.num} className="flex gap-5 items-start">
+              <span className="font-serif text-[#FF5C00] text-2xl font-bold shrink-0 w-8">{item.num}</span>
+              <div>
+                <p className="text-white font-semibold text-base mb-1">{item.title}</p>
+                <p className="text-white/50 text-sm leading-relaxed">{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Why 1:1 */}
+        <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-10">Por qué 1:1 y no un curso</p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 w-full max-w-2xl text-center mb-20">
+          {[
+            { title: 'Tu contexto, no el genérico', desc: 'No hay dos trainers iguales. Trabajamos con tu perfil, tu ciudad, tus tarifas y tus clientes actuales.' },
+            { title: 'Feedback en tiempo real', desc: 'Correcciones sobre tus conversaciones reales, tus publicaciones y tus propuestas. No teoría.' },
+            { title: 'Resultado medible', desc: 'El objetivo es que cerrés más ventas. No que termines el módulo 7. Medimos resultados concretos.' },
+          ].map((item, i) => (
+            <div key={i} className="flex flex-col items-center gap-3">
+              <div className="w-8 h-px bg-[#FF5C00]" />
+              <p className="text-white font-semibold text-base">{item.title}</p>
+              <p className="text-white/45 text-sm leading-relaxed">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+
         <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-4">Contacto</p>
         <h2 className="font-serif text-white text-3xl sm:text-4xl font-semibold text-center mb-3">
           ¿Trabajamos juntos?
