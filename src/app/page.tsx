@@ -83,10 +83,7 @@ export default function Home() {
               Tenés el oficio. Vender online es la parte que todavía falta.
             </h1>
             <p className="text-white/60 text-base sm:text-lg mt-4 max-w-sm mx-auto">
-              La mentoría 1:1 para entrenadores, nutricionistas y profesionales del fitness que quieren conseguir clientes en redes — sin pauta, sin imitar a nadie.
-            </p>
-            <p className="text-white/40 text-sm mt-3 max-w-sm mx-auto">
-              Sin reels copiados. Sin pauta. Con el Sistema 4 Steps.
+              Entrenadores, nutricionistas y profesionales del fitness que quieren vender en redes. Sin pauta. Sin imitar a nadie.
             </p>
           </div>
         </div>
