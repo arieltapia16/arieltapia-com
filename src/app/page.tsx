@@ -80,10 +80,10 @@ export default function Home() {
               <span className="text-white/50 text-xs tracking-[0.2em] uppercase">Ahora mismo</span>
             </div>
             <h1 className="font-serif text-white text-3xl sm:text-4xl md:text-5xl font-bold leading-tight max-w-xl">
-              Cerrás al 80% en el gym. En el chat, sos otra persona.
+              Tenés el oficio. Vender online es la parte que todavía falta.
             </h1>
             <p className="text-white/60 text-base sm:text-lg mt-4 max-w-sm mx-auto">
-              La mentoría 1:1 para entrenadores con agenda llena que no logran cerrar por DM.
+              La mentoría 1:1 para entrenadores, nutricionistas y profesionales del fitness que quieren conseguir clientes en redes — sin pauta, sin imitar a nadie.
             </p>
             <p className="text-white/40 text-sm mt-3 max-w-sm mx-auto">
               Sin reels copiados. Sin pauta. Con el Sistema 4 Steps.
@@ -105,11 +105,11 @@ export default function Home() {
         <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-10">Para quién es esto</p>
         <div className="flex flex-col gap-4 w-full max-w-lg mb-0">
           {[
-            'Tenés 5 o más años entrenando y agenda llena. Tu techo no es el oficio — es el tiempo.',
-            'Cerrás al 70-90% en el gimnasio y al 0-5% en el chat. Sabés que algo falla, pero no qué.',
-            'Ya intentaste reels, un community manager o un curso online. No funcionó.',
-            'Ves colegas con menos oficio facturando online lo que vos no lográs tocar. Eso te come por dentro.',
-            'Sabés que tenés el cuerpo, los resultados y los años. Lo que no tenés es cómo traducirlo al digital.',
+            'Sos entrenador personal, nutricionista o profesional del fitness con años de experiencia cara a cara. Tu techo no es el oficio — es saber cómo venderlo en redes.',
+            'En persona cerrás clientes sin problema — o el boca a boca siempre te alcanzó. En digital, no sabés cómo empezar a convertir seguidores en clientes.',
+            'Querés sumar el canal online sin abandonar el presencial, pero cada vez que intentás arrancarlo lo terminás postergando otro mes.',
+            'Ya intentaste reels, un community manager o un curso online. No funcionó, o nunca llegaste a terminarlo.',
+            'Ves colegas con menos certificaciones facturando online lo que vos no lográs tocar. Sabés que el problema no es el oficio.',
           ].map((text, i) => (
             <div key={i} className="flex gap-4 items-start">
               <span className="text-[#FF5C00] mt-0.5 shrink-0">→</span>
@@ -171,7 +171,7 @@ export default function Home() {
           <span className="w-2 h-2 rounded-full bg-[#FF5C00] animate-pulse shrink-0" />
           <p className="text-white/60 text-xs">
             Hoy estoy ayudando a{' '}
-            <span className="text-white font-medium">personal trainers</span>
+            <span className="text-white font-medium">entrenadores, nutricionistas y profesionales del fitness</span>
             {' '}a vender digital 1:1
           </p>
         </div>
@@ -182,8 +182,8 @@ export default function Home() {
           {[
             {
               img: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?auto=format&fit=crop&w=800&q=80',
-              title: 'Cerrás al 80% en el gym. Al 0% en el chat.',
-              text: 'En el gym cerrás sin pensarlo. En el chat dudás, te freezás, mandás el precio y el cliente desaparece. Son como dos profesionales distintos haciendo el mismo trabajo.',
+              title: 'En persona sos otro. Online, la venta no arranca.',
+              text: 'Con tus clientes presenciales cerrás sin pensarlo — o el boca a boca siempre te trajo trabajo. En el chat dudás, te freezás, no sabés qué publicar ni cómo convertir un seguidor en una consulta.',
             },
             {
               img: 'https://images.unsplash.com/photo-1758599880935-516d241bc5f3?auto=format&fit=crop&w=800&q=80',
@@ -214,7 +214,7 @@ export default function Home() {
           ))}
         </div>
         <p className="text-white/40 text-sm text-center mb-10 max-w-sm">
-          Trabajé con trainers que vendían muy bien en persona y no podían replicarlo online.{' '}
+          Trabajé con entrenadores, nutricionistas y coaches que tenían todo el oficio y no podían replicarlo online.{' '}
           <span className="text-white/60">Ese es exactamente el problema que resuelve la mentoría.</span>
         </p>
 
