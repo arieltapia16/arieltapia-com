@@ -213,6 +213,23 @@ export default function Home() {
             </div>
           ))}
         </div>
+        {/* Nutritionist callout */}
+        <div className="w-full max-w-2xl mb-10">
+          <div className="relative h-52 sm:h-64 overflow-hidden">
+            <Image
+              src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=1200&q=80"
+              alt="Nutricionista"
+              fill
+              className="object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-black/50" />
+          </div>
+          <p className="text-white/55 text-sm text-center mt-4 leading-relaxed max-w-lg mx-auto">
+            ¿Nutricionista, coach de hábitos o profesional de la salud?{' '}
+            <span className="text-white/80">El problema de vender online es el mismo. El sistema aplica igual.</span>
+          </p>
+        </div>
+
         <p className="text-white/40 text-sm text-center mb-10 max-w-sm">
           Trabajé con entrenadores, nutricionistas y coaches que tenían todo el oficio y no podían replicarlo online.{' '}
           <span className="text-white/60">Ese es exactamente el problema que resuelve la mentoría.</span>
