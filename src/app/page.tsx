@@ -1,8 +1,10 @@
 'use client'
 
 import Image from 'next/image'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
+
+type Countdown = { days: number; hours: number; minutes: number; seconds: number }
 
 export default function Home() {
   const [name, setName] = useState('')
@@ -10,6 +12,31 @@ export default function Home() {
   const [rubro, setRubro] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [timeLeft, setTimeLeft] = useState<Countdown>({ days: 0, hours: 0, minutes: 0, seconds: 0 })
+
+  useEffect(() => {
+    const KEY = 'oferta_expiry'
+    let expiry = localStorage.getItem(KEY)
+    if (!expiry) {
+      const d = new Date()
+      d.setDate(d.getDate() + 7)
+      expiry = d.toISOString()
+      localStorage.setItem(KEY, expiry)
+    }
+    const tick = () => {
+      const diff = new Date(expiry!).getTime() - Date.now()
+      if (diff <= 0) { setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 }); return }
+      setTimeLeft({
+        days: Math.floor(diff / 86400000),
+        hours: Math.floor((diff % 86400000) / 3600000),
+        minutes: Math.floor((diff % 3600000) / 60000),
+        seconds: Math.floor((diff % 60000) / 1000),
+      })
+    }
+    tick()
+    const id = setInterval(tick, 1000)
+    return () => clearInterval(id)
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -243,6 +270,61 @@ export default function Home() {
           </a>
         </div>
 
+        {/* De Cero a Clientes */}
+        <div className="w-full max-w-2xl mb-20">
+          <div className="border border-white/10 bg-white/3 px-6 py-8 sm:px-10">
+            <div className="flex items-center gap-2 mb-5">
+              <span className="text-[#FF5C00] text-xs font-semibold tracking-[0.2em] uppercase">Nuevo</span>
+              <span className="w-px h-3 bg-white/20" />
+              <span className="text-white/40 text-xs tracking-[0.15em] uppercase">Antes de la mentoría</span>
+            </div>
+            <h3 className="font-serif text-white text-2xl sm:text-3xl font-bold mb-3 leading-snug">
+              De Cero a Clientes
+            </h3>
+            <p className="text-white/55 text-sm leading-relaxed mb-6 max-w-md">
+              Si todavía no tenés presencia digital, este programa te lleva desde cero hasta tu primer cliente online.
+              Contenido, audiencia y ventas — paso a paso, antes de encarar la mentoría 1:1.
+            </p>
+
+            {/* Price */}
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-white/30 line-through text-lg">USD 100</span>
+              <span className="font-serif text-[#FF5C00] text-3xl font-bold">USD 79</span>
+              <span className="bg-[#FF5C00]/15 text-[#FF5C00] text-xs font-semibold px-2 py-0.5 border border-[#FF5C00]/30">
+                10% OFF
+              </span>
+            </div>
+
+            {/* Countdown */}
+            <p className="text-white/30 text-xs uppercase tracking-[0.2em] mb-3">Oferta válida por</p>
+            <div className="flex gap-3 mb-8">
+              {[
+                { val: timeLeft.days, label: 'días' },
+                { val: timeLeft.hours, label: 'hs' },
+                { val: timeLeft.minutes, label: 'min' },
+                { val: timeLeft.seconds, label: 'seg' },
+              ].map(({ val, label }) => (
+                <div key={label} className="flex flex-col items-center w-14 border border-white/10 py-2">
+                  <span className="font-serif text-white text-xl font-bold tabular-nums">
+                    {String(val).padStart(2, '0')}
+                  </span>
+                  <span className="text-white/30 text-[10px] uppercase tracking-widest mt-0.5">{label}</span>
+                </div>
+              ))}
+            </div>
+
+            <a
+              href={`https://wa.me/5492236693894?text=${encodeURIComponent('Quiero saber más sobre De Cero a Clientes')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-[#FF5C00] text-white text-sm font-semibold py-3 px-6 hover:bg-[#e05200] transition-colors tracking-widest uppercase"
+            >
+              <FaWhatsapp size={15} />
+              Quiero este programa
+            </a>
+          </div>
+        </div>
+
         {/* Benefits */}
         <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-4">La mentoría 1:1</p>
         <h2 className="font-serif text-white text-3xl sm:text-4xl font-semibold text-center mb-3 max-w-md">
@@ -332,6 +414,33 @@ export default function Home() {
           La pregunta no es si tenés el oficio para cobrar lo que cobran los grandes online.
           {' '}<span className="text-white/70">La pregunta es si tenés el sistema para traducirlo al canal digital.</span>
         </p>
+
+        {/* Si no tenés contenido — filter block */}
+        <div className="w-full max-w-lg border border-white/10 bg-white/3 px-6 py-7 mb-12 text-center">
+          <p className="text-white/40 text-xs tracking-[0.25em] uppercase mb-3">Antes de aplicar</p>
+          <p className="text-white font-semibold text-base mb-2">¿Todavía no tenés contenido online?</p>
+          <p className="text-white/50 text-sm leading-relaxed mb-5">
+            Esta mentoría no es para vos todavía — y eso está bien.
+            Tengo un programa previo para que arranques desde cero y llegues listo.
+          </p>
+          {/* Price */}
+          <div className="flex items-center justify-center gap-3 mb-3">
+            <span className="text-white/30 line-through text-base">USD 100</span>
+            <span className="font-serif text-[#FF5C00] text-4xl font-bold">USD 79</span>
+          </div>
+          <p className="font-serif text-white text-lg font-semibold mb-5 leading-snug">
+            Curso + guía para que tengas todo para arrancar
+          </p>
+          <a
+            href={`https://wa.me/5492236693894?text=${encodeURIComponent('Quiero aprender a crear contenido')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 border border-[#FF5C00]/40 text-[#FF5C00] text-sm font-semibold py-2.5 px-5 hover:bg-[#FF5C00]/10 transition-colors"
+          >
+            <FaWhatsapp size={14} />
+            Quiero aprender a crear contenido
+          </a>
+        </div>
 
         <p id="contacto" className="text-white/40 text-xs tracking-[0.3em] uppercase mb-4">Aplicar al programa</p>
         <h2 className="font-serif text-white text-3xl sm:text-4xl font-semibold text-center mb-3">
