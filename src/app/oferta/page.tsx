@@ -290,21 +290,30 @@ export default function OfertaPage() {
     return (
       <main className="bg-[#0D0D0D] min-h-screen flex flex-col items-center justify-center px-6 py-16 text-center">
         <div className="w-8 h-px bg-white/20 mb-8" />
-        <p className="text-white/40 text-sm tracking-[0.3em] uppercase mb-4">Un momento</p>
-        <h2 className="font-serif text-white text-3xl sm:text-4xl font-bold mb-5 max-w-sm leading-snug">
+        <p className="text-white/40 text-base tracking-[0.3em] uppercase mb-5">Un momento</p>
+        <h2 className="font-serif text-white text-4xl sm:text-5xl font-bold mb-6 max-w-md leading-snug">
           Esta mentoría no es para vos todavía.
         </h2>
-        <p className="text-white/50 text-base leading-relaxed mb-8 max-w-sm">
+        <p className="text-white/50 text-lg leading-relaxed mb-8 max-w-md">
           Sin contenido publicado, todavía no tenés la base para aprovechar el programa 1:1.
           Pero tengo un curso previo, súper accesible, que te lleva de cero a tu primera presencia digital.
         </p>
+        <div className="mb-7 text-center border border-[#FF5C00]/40 px-8 py-5 max-w-sm">
+          <div className="flex items-center justify-center gap-3 mb-2">
+            <span className="text-white/30 line-through text-lg">USD 100</span>
+            <span className="font-serif text-[#FF5C00] text-4xl font-bold">USD 79</span>
+          </div>
+          <p className="text-white/60 text-base leading-relaxed">
+            Curso + 30 días de guiones adaptados a tu oferta
+          </p>
+        </div>
         <a href={`https://wa.me/5492236693894?text=${encodeURIComponent('Quiero aprender a crear contenido')}`}
           target="_blank" rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-[#FF5C00] text-white text-base font-semibold py-3 px-7 hover:bg-[#e05200] transition-colors tracking-widest uppercase mb-6">
-          <FaWhatsapp size={17} />Quiero aprender a crear contenido
+          className="inline-flex items-center gap-2 bg-[#FF5C00] text-white text-lg font-semibold py-4 px-8 hover:bg-[#e05200] transition-colors tracking-widest uppercase mb-6">
+          <FaWhatsapp size={19} />Quiero aprender a crear contenido
         </a>
         <button type="button" onClick={() => { setGated(false); setStep(7) }}
-          className="text-white/25 text-sm hover:text-white/50 transition-colors">
+          className="text-white/25 text-base hover:text-white/50 transition-colors">
           Igual quiero continuar con el formulario →
         </button>
       </main>
@@ -342,15 +351,10 @@ export default function OfertaPage() {
 
         {/* Header */}
         <div className="w-full flex items-center justify-between mb-12">
-          {/* Mobile: vuelve al paso anterior */}
-          <div className="lg:hidden">
-            {step > 1
-              ? <button type="button" onClick={() => setStep(s => s - 1)} className="text-white/30 hover:text-white/60 transition-colors"><FaArrowLeft size={18} /></button>
-              : <Link href="/" className="text-white/30 hover:text-white/60 transition-colors"><FaArrowLeft size={18} /></Link>
-            }
-          </div>
-          {/* Desktop: siempre va a home */}
-          <Link href="/" className="hidden lg:block text-white/30 hover:text-white/60 transition-colors"><FaArrowLeft size={18} /></Link>
+          {step > 1
+            ? <button type="button" onClick={() => setStep(s => s - 1)} className="text-white/30 hover:text-white/60 transition-colors"><FaArrowLeft size={18} /></button>
+            : <Link href="/" className="text-white/30 hover:text-white/60 transition-colors"><FaArrowLeft size={18} /></Link>
+          }
           <span className="text-white text-base font-light tracking-[0.3em] uppercase">Ariel Tapia</span>
           <div className="w-5" />
         </div>

@@ -262,7 +262,7 @@ export default function Home() {
         {/* CTA 1 */}
         <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md mb-20">
           <a href="#contacto" className="flex-1 text-center bg-[#FF5C00] text-white text-sm font-semibold py-3 px-5 hover:bg-[#e05200] transition-colors tracking-widest uppercase">
-            Quiero salir de esta trampa
+            Quiero este programa
           </a>
           <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex-1 text-center border border-white/20 text-white/60 text-sm font-semibold py-3 px-5 hover:border-white/50 hover:text-white transition-colors flex items-center justify-center gap-2">
             <FaWhatsapp size={15} />
@@ -272,7 +272,7 @@ export default function Home() {
 
         {/* De Cero a Clientes */}
         <div className="w-full max-w-2xl mb-20">
-          <div className="border border-white/10 bg-white/3 px-6 py-8 sm:px-10">
+          <div className="border border-[#FF5C00]/40 bg-white/3 px-6 py-8 sm:px-10">
             <div className="flex items-center gap-2 mb-5">
               <span className="text-[#FF5C00] text-xs font-semibold tracking-[0.2em] uppercase">Nuevo</span>
               <span className="w-px h-3 bg-white/20" />
@@ -320,7 +320,7 @@ export default function Home() {
               className="inline-flex items-center gap-2 bg-[#FF5C00] text-white text-sm font-semibold py-3 px-6 hover:bg-[#e05200] transition-colors tracking-widest uppercase"
             >
               <FaWhatsapp size={15} />
-              Quiero este programa
+              Quiero ganar desde el online
             </a>
           </div>
         </div>
@@ -353,7 +353,7 @@ export default function Home() {
         {/* CTA 2 */}
         <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md mb-20">
           <a href="#contacto" className="flex-1 text-center bg-[#FF5C00] text-white text-sm font-semibold py-3 px-5 hover:bg-[#e05200] transition-colors tracking-widest uppercase">
-            Quiero trabajar esto con Ariel
+            Quiero este programa
           </a>
           <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex-1 text-center border border-white/20 text-white/60 text-sm font-semibold py-3 px-5 hover:border-white/50 hover:text-white transition-colors flex items-center justify-center gap-2">
             <FaWhatsapp size={15} />
@@ -380,7 +380,7 @@ export default function Home() {
         {/* CTA 3 */}
         <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md mb-20">
           <a href="#contacto" className="flex-1 text-center bg-[#FF5C00] text-white text-sm font-semibold py-3 px-5 hover:bg-[#e05200] transition-colors tracking-widest uppercase">
-            Quiero la llamada de calificación
+            Quiero este programa
           </a>
           <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex-1 text-center border border-white/20 text-white/60 text-sm font-semibold py-3 px-5 hover:border-white/50 hover:text-white transition-colors flex items-center justify-center gap-2">
             <FaWhatsapp size={15} />
@@ -416,7 +416,7 @@ export default function Home() {
         </p>
 
         {/* Si no tenés contenido — filter block */}
-        <div className="w-full max-w-lg border border-white/10 bg-white/3 px-6 py-7 mb-12 text-center">
+        <div className="w-full max-w-lg border border-[#FF5C00]/40 bg-white/3 px-6 py-7 mb-12 text-center">
           <p className="text-white/40 text-xs tracking-[0.25em] uppercase mb-3">Antes de aplicar</p>
           <p className="text-white font-semibold text-base mb-2">¿Todavía no tenés contenido online?</p>
           <p className="text-white/50 text-sm leading-relaxed mb-5">
@@ -480,7 +480,7 @@ export default function Home() {
               disabled={loading}
               className="bg-[#FF5C00] text-white text-sm font-semibold py-3 px-6 hover:bg-[#e05200] transition-colors tracking-widest uppercase disabled:opacity-50"
             >
-              {loading ? 'Enviando...' : 'Quiero la llamada de calificación'}
+              {loading ? 'Enviando...' : 'Quiero este programa'}
             </button>
           </form>
         ) : (
