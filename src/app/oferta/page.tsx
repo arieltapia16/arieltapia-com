@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { FaWhatsapp, FaInstagram, FaArrowLeft, FaPhone } from 'react-icons/fa6'
+import { FaWhatsapp, FaInstagram, FaArrowLeft, FaPhone, FaHouse, FaCircleInfo } from 'react-icons/fa6'
 
 type Answers = {
   // 1-6: calificación
@@ -162,6 +162,8 @@ export default function OfertaPage() {
   const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState('')
   const [gated, setGated] = useState(false)
+  const [activeBubble, setActiveBubble] = useState<'phone' | 'info' | 'home' | null>(null)
+  const [loaded, setLoaded] = useState(false)
 
   const STORAGE_KEY = 'oferta_draft'
 
@@ -174,13 +176,20 @@ export default function OfertaPage() {
         if (a) setAnswers(a)
       }
     } catch {}
+    setLoaded(true)
   }, [])
 
   useEffect(() => {
+    if (!loaded) return
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify({ step, answers }))
     } catch {}
-  }, [step, answers])
+  }, [step, answers, loaded])
+
+  const openBubble = (b: 'phone' | 'info' | 'home') => {
+    setActiveBubble(b)
+    setTimeout(() => setActiveBubble(null), 3000)
+  }
 
   const set = <K extends keyof Answers>(key: K, val: Answers[K]) =>
     setAnswers((prev) => ({ ...prev, [key]: val }))
@@ -333,12 +342,62 @@ export default function OfertaPage() {
 
         {/* Header */}
         <div className="w-full flex items-center justify-between mb-12">
-          <Link href="/" className="text-white/30 hover:text-white/60 transition-colors"><FaArrowLeft size={18} /></Link>
+          {/* Mobile: vuelve al paso anterior */}
+          <div className="lg:hidden">
+            {step > 1
+              ? <button type="button" onClick={() => setStep(s => s - 1)} className="text-white/30 hover:text-white/60 transition-colors"><FaArrowLeft size={18} /></button>
+              : <Link href="/" className="text-white/30 hover:text-white/60 transition-colors"><FaArrowLeft size={18} /></Link>
+            }
+          </div>
+          {/* Desktop: siempre va a home */}
+          <Link href="/" className="hidden lg:block text-white/30 hover:text-white/60 transition-colors"><FaArrowLeft size={18} /></Link>
           <span className="text-white text-base font-light tracking-[0.3em] uppercase">Ariel Tapia</span>
           <div className="w-5" />
         </div>
 
         <ProgressBar step={step} />
+
+        {/* Mobile bubble navbar — below progress bar, step 7+ */}
+        {step >= 7 && (
+          <div className="lg:hidden w-full mb-6">
+            <div className="flex items-center gap-3">
+              {step >= 10 && (
+                <button type="button" onClick={() => openBubble('phone')}
+                  className={`w-9 h-9 rounded-full flex items-center justify-center border transition-colors ${activeBubble === 'phone' ? 'border-[#FF5C00] bg-[#FF5C00]/15' : 'border-[#FF5C00]/30 bg-white/5'}`}>
+                  <FaPhone size={13} className="text-[#FF5C00]/80" />
+                </button>
+              )}
+              <button type="button" onClick={() => openBubble('info')}
+                className={`w-9 h-9 rounded-full flex items-center justify-center border transition-colors ${activeBubble === 'info' ? 'border-[#FF5C00] bg-[#FF5C00]/15' : 'border-[#FF5C00]/30 bg-white/5'}`}>
+                <FaCircleInfo size={13} className="text-[#FF5C00]/80" />
+              </button>
+              <button type="button" onClick={() => openBubble('home')}
+                className={`w-9 h-9 rounded-full flex items-center justify-center border transition-colors ${activeBubble === 'home' ? 'border-white/40 bg-white/10' : 'border-white/15 bg-white/5'}`}>
+                <FaHouse size={13} className="text-white/40" />
+              </button>
+            </div>
+            {activeBubble === 'phone' && (
+              <div className="mt-2 border border-[#FF5C00]/30 bg-[#0D0D0D] px-4 py-3">
+                <p className="text-white/60 text-sm leading-relaxed">
+                  Si tenés dudas o dejás algo sin completar lo hacemos en nuestra primera llamada.
+                </p>
+              </div>
+            )}
+            {activeBubble === 'info' && (
+              <div className="mt-2 border border-[#FF5C00]/30 bg-[#0D0D0D] px-4 py-3">
+                <p className="text-white/60 text-sm leading-relaxed">
+                  Si se te cerró la página podés continuar desde donde lo dejaste en{' '}
+                  <span className="text-[#FF5C00]/80">arieltapia.com/oferta</span>
+                </p>
+              </div>
+            )}
+            {activeBubble === 'home' && (
+              <div className="mt-2 border border-white/10 bg-[#0D0D0D] px-4 py-3">
+                <Link href="/" className="text-white/50 text-sm">← Home</Link>
+              </div>
+            )}
+          </div>
+        )}
 
         <div className="w-full">
 
@@ -625,8 +684,9 @@ export default function OfertaPage() {
 
       </div>
 
+      {/* Desktop only: fixed bottom-right cards */}
       {step >= 7 && (
-        <div className="fixed bottom-5 right-5 flex flex-col gap-2 max-w-[240px]">
+        <div className="hidden lg:flex fixed bottom-5 right-5 flex-col gap-2 max-w-[240px]">
           {step >= 10 && (
             <div className="border border-[#FF5C00]/30 bg-[#0D0D0D]/90 px-4 py-3">
               <div className="flex items-start gap-2">
