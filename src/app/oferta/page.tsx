@@ -8,6 +8,10 @@ type Answers = {
   // 1-6: calificación
   nombre: string
   email: string
+  codigoPais: string
+  telefono: string
+  instagram: string
+  tiktok: string
   profesion: string
   experiencia: string
   clientes: string
@@ -53,7 +57,7 @@ type Answers = {
 }
 
 const INITIAL: Answers = {
-  nombre: '', email: '', profesion: '', experiencia: '', clientes: '', digitalIntent: [],
+  nombre: '', email: '', codigoPais: '', telefono: '', instagram: '', tiktok: '', profesion: '', experiencia: '', clientes: '', digitalIntent: [],
   perfil: '', edad: '', situacion: '',
   dolor: '', deseo: '', resultado: '', indicador: '',
   plazo: '', sin: '',
@@ -237,6 +241,9 @@ export default function OfertaPage() {
     try {
       const a = answers
       const formattedAnswers: Record<string, string> = {
+        ...(a.telefono ? { 'Teléfono': `+${a.codigoPais} ${a.telefono}`.trim() } : {}),
+        ...(a.instagram ? { 'Instagram': `@${a.instagram}` } : {}),
+        ...(a.tiktok ? { 'TikTok': `@${a.tiktok}` } : {}),
         '¿A qué te dedicás?': a.profesion,
         '¿Cuántos años de experiencia?': a.experiencia,
         '¿Cómo conseguís clientes hoy?': a.clientes,
@@ -414,8 +421,59 @@ export default function OfertaPage() {
 
           {step === 2 && (
             <div className="flex flex-col gap-6">
-              <StepHeader n={2} title="¿Cuál es tu email?" sub="Te mando los detalles de la llamada por acá." />
-              <TextInput value={answers.email} onChange={(v) => set('email', v)} placeholder="tu@email.com" onEnter={next} />
+              <StepHeader n={2} title="¿Cómo te contactamos?" sub="El email es obligatorio, el resto opcional." />
+              <div className="flex flex-col gap-4">
+                <div>
+                  <Label>Email</Label>
+                  <TextInput value={answers.email} onChange={(v) => set('email', v)} placeholder="tu@email.com" onEnter={next} />
+                </div>
+                <div>
+                  <Label>Teléfono <span className="text-white/25">(opcional)</span></Label>
+                  <div className="flex">
+                    <span className="bg-white/5 border border-r-0 border-white/10 px-4 flex items-center text-white/50 text-base shrink-0">+</span>
+                    <input
+                      type="tel"
+                      value={answers.codigoPais}
+                      onChange={(e) => set('codigoPais', e.target.value)}
+                      placeholder="54"
+                      className="w-20 bg-white/5 text-white text-base placeholder-white/20 px-3 py-3 border border-r-0 border-white/10 outline-none focus:border-[#FF5C00] transition text-center"
+                    />
+                    <input
+                      type="tel"
+                      value={answers.telefono}
+                      onChange={(e) => set('telefono', e.target.value)}
+                      placeholder="9 11 1234 5678"
+                      className="flex-1 bg-white/5 text-white text-base placeholder-white/20 px-4 py-3 border border-white/10 outline-none focus:border-[#FF5C00] transition"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <Label>Instagram <span className="text-white/25">(opcional)</span></Label>
+                  <div className="flex">
+                    <span className="bg-white/5 border border-r-0 border-white/10 px-4 flex items-center text-white/50 text-base">@</span>
+                    <input
+                      type="text"
+                      value={answers.instagram}
+                      onChange={(e) => set('instagram', e.target.value)}
+                      placeholder="usuario"
+                      className="flex-1 bg-white/5 text-white text-base placeholder-white/20 px-4 py-3 border border-white/10 outline-none focus:border-[#FF5C00] transition"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <Label>TikTok <span className="text-white/25">(opcional)</span></Label>
+                  <div className="flex">
+                    <span className="bg-white/5 border border-r-0 border-white/10 px-4 flex items-center text-white/50 text-base">@</span>
+                    <input
+                      type="text"
+                      value={answers.tiktok}
+                      onChange={(e) => set('tiktok', e.target.value)}
+                      placeholder="usuario"
+                      className="flex-1 bg-white/5 text-white text-base placeholder-white/20 px-4 py-3 border border-white/10 outline-none focus:border-[#FF5C00] transition"
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           )}
 
