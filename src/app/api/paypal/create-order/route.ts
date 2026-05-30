@@ -1,7 +1,8 @@
 import { getPaypalAccessToken, getPaypalBaseUrl } from '@/lib/paypal'
 
 const PRODUCT_NAME = 'De Cero a Clientes — Curso + Guiones'
-const PRICE_USD = '49.00'
+// TEMPORARY: live-mode smoke test at USD 1. Revert to '49.00' after verifying.
+const PRICE_USD = '1.00'
 
 export async function POST() {
   try {
