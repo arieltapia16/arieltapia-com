@@ -46,6 +46,7 @@ export default function PaypalCheckoutButton() {
     intent: 'capture',
     enableFunding: 'card',
     disableFunding: 'paylater,credit',
+    locale: 'es_AR',
   }
 
   return (
