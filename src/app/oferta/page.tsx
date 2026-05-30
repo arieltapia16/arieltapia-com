@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { FaWhatsapp, FaInstagram, FaArrowLeft, FaPhone, FaHouse, FaCircleInfo } from 'react-icons/fa6'
+import PaypalCheckoutButton from '@/components/PaypalCheckoutButton'
 
 type Answers = {
   // 1-6: calificación
@@ -308,16 +309,19 @@ export default function OfertaPage() {
         <div className="mb-7 text-center border border-[#FF5C00]/40 px-8 py-5 max-w-sm">
           <div className="flex items-center justify-center gap-3 mb-2">
             <span className="text-white/30 line-through text-lg">USD 100</span>
-            <span className="font-serif text-[#FF5C00] text-4xl font-bold">USD 79</span>
+            <span className="font-serif text-[#FF5C00] text-4xl font-bold">USD 49</span>
           </div>
           <p className="text-white/60 text-base leading-relaxed">
             Curso + 30 días de guiones adaptados a tu oferta
           </p>
         </div>
-        <a href={`https://wa.me/5492236693894?text=${encodeURIComponent('Quiero aprender a crear contenido')}`}
+        <div className="w-full max-w-sm mb-4">
+          <PaypalCheckoutButton />
+        </div>
+        <a href={`https://wa.me/5492236693894?text=${encodeURIComponent('Tengo dudas sobre De Cero a Clientes')}`}
           target="_blank" rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 bg-[#FF5C00] text-white text-lg font-semibold py-4 px-8 hover:bg-[#e05200] transition-colors tracking-widest uppercase mb-6">
-          <FaWhatsapp size={19} />Quiero aprender a crear contenido
+          className="inline-flex items-center gap-2 text-white/40 text-sm hover:text-white/70 transition-colors mb-6">
+          <FaWhatsapp size={14} />Tengo dudas — escribime por WhatsApp
         </a>
         <button type="button" onClick={() => { setGated(false); setStep(7) }}
           className="text-white/25 text-base hover:text-white/50 transition-colors">

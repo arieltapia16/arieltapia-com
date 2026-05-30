@@ -3,6 +3,7 @@
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
+import PaypalCheckoutButton from '@/components/PaypalCheckoutButton'
 
 type Countdown = { days: number; hours: number; minutes: number; seconds: number }
 
@@ -289,9 +290,9 @@ export default function Home() {
             {/* Price */}
             <div className="flex items-center gap-3 mb-6">
               <span className="text-white/30 line-through text-lg">USD 100</span>
-              <span className="font-serif text-[#FF5C00] text-3xl font-bold">USD 79</span>
+              <span className="font-serif text-[#FF5C00] text-3xl font-bold">USD 49</span>
               <span className="bg-[#FF5C00]/15 text-[#FF5C00] text-xs font-semibold px-2 py-0.5 border border-[#FF5C00]/30">
-                10% OFF
+                50% OFF
               </span>
             </div>
 
@@ -313,14 +314,17 @@ export default function Home() {
               ))}
             </div>
 
+            <div className="max-w-sm mb-3">
+              <PaypalCheckoutButton />
+            </div>
             <a
-              href={`https://wa.me/5492236693894?text=${encodeURIComponent('Quiero saber más sobre De Cero a Clientes')}`}
+              href={`https://wa.me/5492236693894?text=${encodeURIComponent('Tengo dudas sobre De Cero a Clientes')}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-[#FF5C00] text-white text-sm font-semibold py-3 px-6 hover:bg-[#e05200] transition-colors tracking-widest uppercase"
+              className="inline-flex items-center gap-2 text-white/40 text-xs hover:text-white/70 transition-colors"
             >
-              <FaWhatsapp size={15} />
-              Quiero ganar desde el online
+              <FaWhatsapp size={12} />
+              Tengo dudas — escribime por WhatsApp
             </a>
           </div>
         </div>
@@ -416,7 +420,7 @@ export default function Home() {
         </p>
 
         {/* Si no tenés contenido — filter block */}
-        <div className="w-full max-w-lg border border-[#FF5C00]/40 bg-white/3 px-6 py-7 mb-12 text-center">
+        <div className="w-full max-w-lg border border-[#FF5C00]/40 bg-white/3 px-6 py-7 mb-24 text-center">
           <p className="text-white/40 text-xs tracking-[0.25em] uppercase mb-3">Antes de aplicar</p>
           <p className="text-white font-semibold text-base mb-2">¿Todavía no tenés contenido online?</p>
           <p className="text-white/50 text-sm leading-relaxed mb-5">
@@ -426,20 +430,46 @@ export default function Home() {
           {/* Price */}
           <div className="flex items-center justify-center gap-3 mb-3">
             <span className="text-white/30 line-through text-base">USD 100</span>
-            <span className="font-serif text-[#FF5C00] text-4xl font-bold">USD 79</span>
+            <span className="font-serif text-[#FF5C00] text-4xl font-bold">USD 49</span>
           </div>
           <p className="font-serif text-white text-lg font-semibold mb-5 leading-snug">
             Curso + guía para que tengas todo para arrancar
           </p>
+          <div className="max-w-sm mx-auto mb-3">
+            <PaypalCheckoutButton />
+          </div>
           <a
-            href={`https://wa.me/5492236693894?text=${encodeURIComponent('Quiero aprender a crear contenido')}`}
+            href={`https://wa.me/5492236693894?text=${encodeURIComponent('Tengo dudas sobre De Cero a Clientes')}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 border border-[#FF5C00]/40 text-[#FF5C00] text-sm font-semibold py-2.5 px-5 hover:bg-[#FF5C00]/10 transition-colors"
+            className="inline-flex items-center gap-2 text-white/40 text-xs hover:text-white/70 transition-colors"
           >
-            <FaWhatsapp size={14} />
-            Quiero aprender a crear contenido
+            <FaWhatsapp size={12} />
+            Tengo dudas — escribime por WhatsApp
           </a>
+        </div>
+
+        {/* Transición — separa visualmente el pago USD 49 del formulario 1:1 */}
+        <div className="w-full flex flex-col items-center mb-20">
+          <div className="w-10 h-px bg-white/15 mb-12" />
+          <div className="relative w-36 h-36 sm:w-44 sm:h-44 mb-8 overflow-hidden rounded-full border border-white/10">
+            <Image
+              src="/ariel.jpg"
+              alt="Ariel Tapia"
+              fill
+              sizes="(min-width: 640px) 176px, 144px"
+              className="object-cover"
+            />
+          </div>
+          <p className="text-[#FF5C00]/70 text-xs tracking-[0.3em] uppercase mb-4">Si ya tenés audiencia</p>
+          <p className="font-serif text-white text-2xl sm:text-3xl font-semibold text-center max-w-md leading-snug mb-4">
+            Pasemos a hablar 1:1
+          </p>
+          <p className="text-white/50 text-sm text-center max-w-sm leading-relaxed">
+            Lo que sigue es la mentoría 1:1 — no un curso, no un grupo. Vos y yo, sobre tu caso puntual.{' '}
+            <span className="text-white/70">El precio se discute en la llamada, no acá.</span>
+          </p>
+          <div className="w-px h-10 bg-white/15 mt-12 mb-2" />
         </div>
 
         <p id="contacto" className="text-white/40 text-xs tracking-[0.3em] uppercase mb-4">Aplicar al programa</p>
