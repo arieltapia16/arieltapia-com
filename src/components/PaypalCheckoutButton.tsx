@@ -44,13 +44,15 @@ export default function PaypalCheckoutButton() {
     clientId,
     currency: 'USD',
     intent: 'capture',
+    enableFunding: 'card',
+    disableFunding: 'paylater,credit',
   }
 
   return (
     <div className="w-full">
       <PayPalScriptProvider options={options}>
         <PayPalButtons
-          style={{ layout: 'horizontal', color: 'gold', shape: 'rect', label: 'paypal' }}
+          style={{ layout: 'vertical', color: 'gold', shape: 'rect', label: 'paypal' }}
           createOrder={async () => {
             setError(null)
             const res = await fetch('/api/paypal/create-order', { method: 'POST' })
