@@ -52,9 +52,8 @@ export default function PaypalCheckoutButton() {
   return (
     <div className="w-full">
       <PayPalScriptProvider options={options}>
-        <div className="bg-white text-gray-900 rounded-md p-3">
-          <PayPalButtons
-            style={{ layout: 'vertical', color: 'gold', shape: 'rect', label: 'paypal' }}
+        <PayPalButtons
+          style={{ layout: 'vertical', color: 'gold', shape: 'rect', label: 'paypal' }}
           createOrder={async () => {
             setError(null)
             const res = await fetch('/api/paypal/create-order', { method: 'POST' })
@@ -83,8 +82,7 @@ export default function PaypalCheckoutButton() {
             console.error('PayPal error:', err)
             setError('Error al procesar el pago. Probá de nuevo.')
           }}
-          />
-        </div>
+        />
       </PayPalScriptProvider>
       {error && (
         <p className="text-red-400 text-xs mt-2">{error}</p>
