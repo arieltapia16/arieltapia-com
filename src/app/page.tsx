@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
-import PaypalCheckoutButton from '@/components/PaypalCheckoutButton'
+import PaypalCheckoutButton, { PaypalProvider } from '@/components/PaypalCheckoutButton'
 
 type Countdown = { days: number; hours: number; minutes: number; seconds: number }
 
@@ -57,6 +57,7 @@ export default function Home() {
   const whatsappUrl = `https://wa.me/5492236693894?text=${encodeURIComponent('Quiero saber más acerca de la mentoría 1:1')}`
 
   return (
+    <PaypalProvider>
     <main className="bg-[#0D0D0D] min-h-screen">
 
       {/* Hero */}
@@ -564,5 +565,6 @@ export default function Home() {
       </a>
 
     </main>
+    </PaypalProvider>
   )
 }

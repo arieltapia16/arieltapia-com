@@ -1,5 +1,6 @@
 'use client'
 
+import type { ReactNode } from 'react'
 import { useState } from 'react'
 import {
   PayPalScriptProvider,
@@ -13,6 +14,29 @@ type CaptureResult = {
   fullName?: string
   amount?: string
   currency?: string
+}
+
+function buildOptions(clientId: string): ReactPayPalScriptOptions {
+  return {
+    clientId,
+    currency: 'USD',
+    intent: 'capture',
+    enableFunding: 'card',
+    disableFunding: 'paylater,credit',
+    locale: 'es_AR',
+  }
+}
+
+/**
+ * Wraps a tree with a single PayPalScriptProvider so multiple buttons on
+ * the same page can share one SDK load. The PayPal SDK does not support
+ * mounting multiple providers in parallel — they race and some buttons
+ * fail to render.
+ */
+export function PaypalProvider({ children }: { children: ReactNode }) {
+  const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID
+  if (!clientId) return <>{children}</>
+  return <PayPalScriptProvider options={buildOptions(clientId)}>{children}</PayPalScriptProvider>
 }
 
 export default function PaypalCheckoutButton() {
@@ -40,50 +64,39 @@ export default function PaypalCheckoutButton() {
     )
   }
 
-  const options: ReactPayPalScriptOptions = {
-    clientId,
-    currency: 'USD',
-    intent: 'capture',
-    enableFunding: 'card',
-    disableFunding: 'paylater,credit',
-    locale: 'es_AR',
-  }
-
   return (
     <div className="w-full">
-      <PayPalScriptProvider options={options}>
-        <PayPalButtons
-          style={{ layout: 'vertical', color: 'gold', shape: 'rect', label: 'paypal' }}
-          createOrder={async () => {
-            setError(null)
-            const res = await fetch('/api/paypal/create-order', { method: 'POST' })
-            if (!res.ok) {
-              const detail = await res.json().catch(() => ({}))
-              throw new Error(detail.error || 'No se pudo crear la orden')
-            }
-            const { id } = await res.json()
-            return id as string
-          }}
-          onApprove={async (data) => {
-            const res = await fetch('/api/paypal/capture-order', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ orderId: data.orderID }),
-            })
-            if (!res.ok) {
-              const detail = await res.json().catch(() => ({}))
-              setError(detail.error || 'El pago no se pudo capturar')
-              return
-            }
-            const result: CaptureResult = await res.json()
-            setSuccess(result)
-          }}
-          onError={(err) => {
-            console.error('PayPal error:', err)
-            setError('Error al procesar el pago. Probá de nuevo.')
-          }}
-        />
-      </PayPalScriptProvider>
+      <PayPalButtons
+        style={{ layout: 'vertical', color: 'gold', shape: 'rect', label: 'paypal' }}
+        createOrder={async () => {
+          setError(null)
+          const res = await fetch('/api/paypal/create-order', { method: 'POST' })
+          if (!res.ok) {
+            const detail = await res.json().catch(() => ({}))
+            throw new Error(detail.error || 'No se pudo crear la orden')
+          }
+          const { id } = await res.json()
+          return id as string
+        }}
+        onApprove={async (data) => {
+          const res = await fetch('/api/paypal/capture-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ orderId: data.orderID }),
+          })
+          if (!res.ok) {
+            const detail = await res.json().catch(() => ({}))
+            setError(detail.error || 'El pago no se pudo capturar')
+            return
+          }
+          const result: CaptureResult = await res.json()
+          setSuccess(result)
+        }}
+        onError={(err) => {
+          console.error('PayPal error:', err)
+          setError('Error al procesar el pago. Probá de nuevo.')
+        }}
+      />
       {error && (
         <p className="text-red-400 text-xs mt-2">{error}</p>
       )}

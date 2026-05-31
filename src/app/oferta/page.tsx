@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { FaWhatsapp, FaInstagram, FaArrowLeft, FaPhone, FaHouse, FaCircleInfo } from 'react-icons/fa6'
-import PaypalCheckoutButton from '@/components/PaypalCheckoutButton'
+import PaypalCheckoutButton, { PaypalProvider } from '@/components/PaypalCheckoutButton'
 
 type Answers = {
   // 1-6: calificación
@@ -296,6 +296,7 @@ export default function OfertaPage() {
 
   if (gated) {
     return (
+      <PaypalProvider>
       <main className="bg-[#0D0D0D] min-h-screen flex flex-col items-center justify-center px-6 py-16 text-center">
         <div className="w-8 h-px bg-white/20 mb-8" />
         <p className="text-white/40 text-base tracking-[0.3em] uppercase mb-5">Un momento</p>
@@ -331,6 +332,7 @@ export default function OfertaPage() {
           Igual quiero continuar con el formulario →
         </button>
       </main>
+      </PaypalProvider>
     )
   }
 
