@@ -153,7 +153,7 @@ export default function Home() {
         <div className="grid grid-cols-3 gap-6 sm:gap-12 mb-12 w-full max-w-md text-center">
           <div>
             <p className="font-serif text-[#FF5C00] text-3xl sm:text-4xl font-bold">20</p>
-            <p className="text-white/50 text-xs mt-1 leading-snug">años en<br/>ventas</p>
+            <p className="text-white/50 text-xs mt-1 leading-snug">años cerrando<br/>cara a cara</p>
           </div>
           <div>
             <p className="font-serif text-[#FF5C00] text-3xl sm:text-4xl font-bold">&lt;/&gt;</p>
@@ -161,11 +161,11 @@ export default function Home() {
           </div>
           <div>
             <p className="font-serif text-[#FF5C00] text-3xl sm:text-4xl font-bold">360°</p>
-            <p className="text-white/50 text-xs mt-1 leading-snug">estrategia<br/>en redes</p>
+            <p className="text-white/50 text-xs mt-1 leading-snug">cierre<br/>por chat</p>
           </div>
         </div>
         <p className="text-white/60 text-sm sm:text-base text-center max-w-sm leading-relaxed">
-          Combiné ventas, tecnología y redes para crear un método que realmente funciona en el mundo digital.
+          Combiné mostrador, consultorio y llamadas en frío con tecnología para construir un sistema de cierre por chat. No es estrategia de contenido — es venta.
         </p>
       </section>
 
@@ -223,7 +223,7 @@ export default function Home() {
             {
               img: 'https://images.unsplash.com/photo-1584466977773-e625c37cdd50?auto=format&fit=crop&w=800&q=80',
               title: 'Tu techo no es el oficio. Son las horas.',
-              text: 'Llegaste a agenda llena por mérito. Pero si te enfermás, no entra. Si tomás vacaciones, no entra. Cada mes empieza de cero con la próxima cuota cobrada.',
+              text: 'Llegaste a agenda llena por mérito. Pero si te enfermás, no entra. Si tomás vacaciones, no entra. El lumbar te habla hace meses y seguís postergando. Cada mes empieza de cero con la próxima cuota cobrada.',
             },
           ].map((item, i) => (
             <div key={i} className="flex border border-white/10 overflow-hidden">
@@ -282,9 +282,12 @@ export default function Home() {
             <h3 className="font-serif text-white text-2xl sm:text-3xl font-bold mb-3 leading-snug">
               De Cero a Clientes
             </h3>
-            <p className="text-white/55 text-sm leading-relaxed mb-6 max-w-md">
+            <p className="text-white/55 text-sm leading-relaxed mb-2 max-w-md">
               Si todavía no tenés presencia digital, este programa te lleva desde cero hasta tu primer cliente online.
               Contenido, audiencia y ventas — paso a paso, antes de encarar la mentoría 1:1.
+            </p>
+            <p className="text-[#FF5C00]/70 text-xs italic mb-6">
+              También viene incluido en el plan base de la mentoría 1:1.
             </p>
 
             {/* Price */}
@@ -339,10 +342,10 @@ export default function Home() {
         </p>
         <div className="flex flex-col gap-8 w-full max-w-lg mb-20">
           {[
-            { num: '01', title: 'Cierre en el chat', desc: 'Llevás una conversación de Instagram o WhatsApp desde el primer mensaje hasta el sí. Sin presionar, sin sonar a vendedor.' },
-            { num: '02', title: 'Precio sin vergüenza', desc: 'Trabajamos tu relación con el dinero y cómo presentar tus tarifas para que generen confianza, no susto.' },
-            { num: '03', title: 'Contenido que atrae clientes', desc: 'Definís qué publicar, cuándo y cómo para que tu perfil haga el trabajo de prospección por vos.' },
-            { num: '04', title: 'Tu sistema de ventas digital', desc: 'Construís un proceso repetible: de seguidor a consulta, de consulta a cliente. Sin depender del algoritmo.' },
+            { num: '01', title: 'Conexión', desc: 'El primer mensaje no es un pitch — es ganarte el derecho a la siguiente respuesta. Aprendés a abrir conversaciones sin sonar a vendedor.' },
+            { num: '02', title: 'Lectura', desc: 'Identificás qué necesita realmente el prospecto antes de ofrecer nada. Acá pierde la venta la mayoría: contestan antes de entender.' },
+            { num: '03', title: 'Espejo', desc: 'Le devolvés su propio caso con tus palabras. Cuando se ve representado, deja de comparar y empieza a confiar.' },
+            { num: '04', title: 'Cierre', desc: 'El sí no se fuerza, se cosecha. Pedirlo en el momento exacto y con las palabras justas — la diferencia entre "lo pienso" y "cuándo arrancamos".' },
           ].map((item) => (
             <div key={item.num} className="flex gap-5 items-start">
               <span className="font-serif text-[#FF5C00] text-2xl font-bold shrink-0 w-8">{item.num}</span>
@@ -371,7 +374,7 @@ export default function Home() {
           {[
             { title: 'Tu contexto, no el genérico', desc: 'No hay dos trainers iguales. Trabajamos con tu perfil, tu ciudad, tus tarifas y tus clientes actuales.' },
             { title: 'Feedback en tiempo real', desc: 'Correcciones sobre tus conversaciones reales, tus publicaciones y tus propuestas. No teoría.' },
-            { title: 'Resultado medible', desc: 'El objetivo es que cerrés más ventas. No que termines el módulo 7. Medimos resultados concretos.' },
+            { title: 'Resultado medible', desc: 'Medimos plata en tu cuenta, no likes ni seguidores. El objetivo es que cerrés más ventas — no que termines el módulo 7.' },
           ].map((item, i) => (
             <div key={i} className="flex flex-col items-center gap-3">
               <div className="w-8 h-px bg-[#FF5C00]" />
@@ -396,7 +399,7 @@ export default function Home() {
         <div className="w-full max-w-lg border border-[#FF5C00]/30 bg-[#FF5C00]/5 px-8 py-8 mb-20 text-center">
           <p className="text-[#FF5C00] text-xs tracking-[0.3em] uppercase mb-4">La promesa</p>
           <p className="font-serif text-white text-2xl sm:text-3xl font-bold leading-snug mb-4">
-            USD 10K mensuales adicionales en digital, en 4 meses.
+            USD 10.000 mensuales adicionales en digital — alcanzados en al menos un mes del proceso de 4 meses.
           </p>
           <p className="text-white/50 text-sm leading-relaxed mb-6">
             Sin pauta paga. Sin reinventarte. Sin imitar a nadie.{' '}
@@ -423,9 +426,12 @@ export default function Home() {
         <div className="w-full max-w-lg border border-[#FF5C00]/40 bg-white/3 px-6 py-7 mb-24 text-center">
           <p className="text-white/40 text-xs tracking-[0.25em] uppercase mb-3">Antes de aplicar</p>
           <p className="text-white font-semibold text-base mb-2">¿Todavía no tenés contenido online?</p>
-          <p className="text-white/50 text-sm leading-relaxed mb-5">
+          <p className="text-white/50 text-sm leading-relaxed mb-2">
             Esta mentoría no es para vos todavía — y eso está bien.
             Tengo un programa previo para que arranques desde cero y llegues listo.
+          </p>
+          <p className="text-[#FF5C00]/70 text-xs italic mb-5">
+            También viene incluido en el plan base de la mentoría 1:1.
           </p>
           {/* Price */}
           <div className="flex items-center justify-center gap-3 mb-3">
@@ -476,8 +482,11 @@ export default function Home() {
         <h2 className="font-serif text-white text-3xl sm:text-4xl font-semibold text-center mb-3">
           Pedí tu llamada de calificación
         </h2>
-        <p className="text-white/40 text-sm text-center mb-10 max-w-xs">
+        <p className="text-white/40 text-sm text-center mb-3 max-w-xs">
           30 minutos. Sin compromiso. Vemos si el Sistema 4 Steps aplica a tu situación.
+        </p>
+        <p className="text-[#FF5C00]/80 text-xs tracking-[0.25em] uppercase text-center mb-10">
+          8 entrenadores en simultáneo, máximo
         </p>
 
         {!submitted ? (

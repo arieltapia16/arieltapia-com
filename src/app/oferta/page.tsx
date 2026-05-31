@@ -302,9 +302,12 @@ export default function OfertaPage() {
         <h2 className="font-serif text-white text-4xl sm:text-5xl font-bold mb-6 max-w-md leading-snug">
           Esta mentoría no es para vos todavía.
         </h2>
-        <p className="text-white/50 text-lg leading-relaxed mb-8 max-w-md">
+        <p className="text-white/50 text-lg leading-relaxed mb-3 max-w-md">
           Sin contenido publicado, todavía no tenés la base para aprovechar el programa 1:1.
           Pero tengo un curso previo, súper accesible, que te lleva de cero a tu primera presencia digital.
+        </p>
+        <p className="text-[#FF5C00]/70 text-sm italic mb-8 max-w-md">
+          También viene incluido en el plan base de la mentoría 1:1.
         </p>
         <div className="mb-7 text-center border border-[#FF5C00]/40 px-8 py-5 max-w-sm">
           <div className="flex items-center justify-center gap-3 mb-2">
