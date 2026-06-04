@@ -3,7 +3,8 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { FaWhatsapp, FaInstagram, FaArrowLeft, FaPhone, FaHouse, FaCircleInfo } from 'react-icons/fa6'
-import PaypalCheckoutButton, { PaypalProvider } from '@/components/PaypalCheckoutButton'
+import WhopCheckout from '@/components/WhopCheckout'
+import { WHOP_PLAN_ID } from '@/lib/whop'
 
 type Answers = {
   // 1-6: calificación
@@ -296,7 +297,6 @@ export default function OfertaPage() {
 
   if (gated) {
     return (
-      <PaypalProvider>
       <main className="bg-[#0D0D0D] min-h-screen flex flex-col items-center justify-center px-6 py-16 text-center">
         <div className="w-8 h-px bg-white/20 mb-8" />
         <p className="text-white/40 text-base tracking-[0.3em] uppercase mb-5">Un momento</p>
@@ -311,16 +311,19 @@ export default function OfertaPage() {
           También viene incluido en el plan base de la mentoría 1:1.
         </p>
         <div className="mb-7 text-center border border-[#FF5C00]/40 px-8 py-5 max-w-sm">
-          <div className="flex items-center justify-center gap-3 mb-2">
-            <span className="text-white/30 line-through text-lg">USD 100</span>
-            <span className="font-serif text-[#FF5C00] text-4xl font-bold">USD 49</span>
+          <div className="flex items-center justify-center gap-3 mb-2 flex-wrap">
+            <span className="text-red-400 line-through text-lg">USD 43,75</span>
+            <span className="font-serif text-green-400 text-4xl font-bold">USD 35</span>
+            <span className="bg-green-400/15 text-green-300 text-xs font-semibold px-2 py-0.5 border border-green-400/30">
+              Ahorrás 20%
+            </span>
           </div>
           <p className="text-white/60 text-base leading-relaxed">
             Curso + 30 días de guiones adaptados a tu oferta
           </p>
         </div>
-        <div className="w-full max-w-sm mb-4">
-          <PaypalCheckoutButton />
+        <div className="w-full max-w-lg mb-4">
+          <WhopCheckout planId={WHOP_PLAN_ID} />
         </div>
         <a href={`https://wa.me/5492236693894?text=${encodeURIComponent('Tengo dudas sobre De Cero a Clientes')}`}
           target="_blank" rel="noopener noreferrer"
@@ -332,7 +335,6 @@ export default function OfertaPage() {
           Igual quiero continuar con el formulario →
         </button>
       </main>
-      </PaypalProvider>
     )
   }
 

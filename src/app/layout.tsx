@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Inter, Playfair_Display, Days_One } from 'next/font/google'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' })
+const daysOne = Days_One({ subsets: ['latin'], weight: '400', variable: '--font-days-one' })
 
 export const metadata: Metadata = {
   title: 'Ariel Tapia | Si sos personal trainer, te ayudo a ganar en redes',
@@ -51,7 +52,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className={`${inter.variable} ${playfair.variable} font-sans`}>{children}</body>
+      <body className={`${inter.variable} ${playfair.variable} ${daysOne.variable} font-sans`}>{children}</body>
     </html>
   )
 }
