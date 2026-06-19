@@ -27,20 +27,33 @@ export async function POST(req: Request) {
 
   // Verifies the Standard-Webhooks signature against WHOP_WEBHOOK_SECRET and
   // throws if it doesn't match, so spoofed requests are rejected.
-  // standardwebhooks (used by @whop/sdk) base64-decodes the secret and only
-  // strips a `whsec_` prefix. Whop's secret uses a `ws_` prefix, so normalize it
-  // to the bare base64 key before verifying.
-  const webhookKey = (process.env.WHOP_WEBHOOK_SECRET ?? '')
+  // standardwebhooks (used by @whop/sdk) always base64-decodes the key we hand
+  // it. Whop's secret is `ws_<value>`; the value can be hex, raw bytes, or
+  // base64, so try each (converted to base64) and use whichever verifies.
+  const afterPrefix = (process.env.WHOP_WEBHOOK_SECRET ?? '')
     .trim()
     .replace(/^ws_/, '')
+  const keyCandidates = [
+    Buffer.from(afterPrefix, 'hex').toString('base64'),
+    Buffer.from(afterPrefix, 'utf8').toString('base64'),
+    afterPrefix,
+  ]
 
-  let event
-  try {
-    event = whopSdk.webhooks.unwrap(body, { headers, key: webhookKey })
-  } catch (err) {
+  let event: ReturnType<typeof whopSdk.webhooks.unwrap> | undefined
+  let lastErr: unknown
+  for (const key of keyCandidates) {
+    try {
+      event = whopSdk.webhooks.unwrap(body, { headers, key })
+      break
+    } catch (err) {
+      lastErr = err
+    }
+  }
+
+  if (!event) {
     // TEMP debug: surface the real verification error in the response so it
     // shows up in Whop's "Test webhook" Response box.
-    const detail = err instanceof Error ? err.message : String(err)
+    const detail = lastErr instanceof Error ? lastErr.message : String(lastErr)
     console.error('Whop webhook verification failed:', detail)
     return Response.json({ error: 'Invalid signature', detail }, { status: 400 })
   }
