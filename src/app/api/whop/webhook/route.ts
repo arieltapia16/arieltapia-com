@@ -30,65 +30,32 @@ export async function POST(req: Request) {
   // standardwebhooks (used by @whop/sdk) always base64-decodes the key we hand
   // it. Whop's secret is `ws_<value>`; the value can be hex, raw bytes, or
   // base64, so try each (converted to base64) and use whichever verifies.
-  const fullSecret = (process.env.WHOP_WEBHOOK_SECRET ?? '').trim()
-  const afterPrefix = fullSecret.replace(/^ws_/, '')
-
-  // The HMAC key for Whop's `ws_` secret could be derived a few ways; build a
-  // labelled set of candidates so we can both verify and diagnose which one is
-  // right. standardwebhooks base64-decodes whatever key we pass, so each Buffer
-  // is re-encoded to base64.
-  const keyBuffers: Record<string, Buffer> = {
-    hex: Buffer.from(afterPrefix, 'hex'),
-    utf8: Buffer.from(afterPrefix, 'utf8'),
-    b64: Buffer.from(afterPrefix, 'base64'),
-    fullUtf8: Buffer.from(fullSecret, 'utf8'),
-  }
+  // Whop's webhook secret is `ws_<hex>`. standardwebhooks (used by @whop/sdk)
+  // base64-decodes whatever key we hand it, so hex-decode the value after the
+  // prefix and re-encode as base64. (Fallbacks cover other encodings in case
+  // Whop ever changes the secret format.)
+  const afterPrefix = (process.env.WHOP_WEBHOOK_SECRET ?? '')
+    .trim()
+    .replace(/^ws_/, '')
+  const keyCandidates = [
+    Buffer.from(afterPrefix, 'hex').toString('base64'),
+    afterPrefix,
+    Buffer.from(afterPrefix, 'utf8').toString('base64'),
+  ]
 
   let event: ReturnType<typeof whopSdk.webhooks.unwrap> | undefined
-  let lastErr: unknown
-  for (const buf of Object.values(keyBuffers)) {
+  for (const key of keyCandidates) {
     try {
-      event = whopSdk.webhooks.unwrap(body, { headers, key: buf.toString('base64') })
+      event = whopSdk.webhooks.unwrap(body, { headers, key })
       break
-    } catch (err) {
-      lastErr = err
+    } catch {
+      /* signature didn't match this candidate — try the next */
     }
   }
 
   if (!event) {
-    // TEMP diagnostic: figure out which key derivation (if any) matches the
-    // signature Whop sent, without leaking the computed HMAC (no signing oracle).
-    let matched = 'none'
-    try {
-      const { createHmac } = await import('crypto')
-      const id = headers['webhook-id'] ?? ''
-      const ts = headers['webhook-timestamp'] ?? ''
-      const received = (headers['webhook-signature'] ?? '')
-        .split(' ')
-        .map((s) => s.split(',')[1])
-        .filter(Boolean)
-      const signedContent = `${id}.${ts}.${body}`
-      for (const [name, buf] of Object.entries(keyBuffers)) {
-        const sig = createHmac('sha256', buf).update(signedContent).digest('base64')
-        if (received.includes(sig)) {
-          matched = name
-          break
-        }
-      }
-    } catch {
-      // ignore diagnostic failures
-    }
-    const detail = lastErr instanceof Error ? lastErr.message : String(lastErr)
-    console.error('Whop webhook verification failed:', detail, '| matched:', matched)
-    return Response.json(
-      {
-        error: 'Invalid signature',
-        detail,
-        matched,
-        hasSig: Boolean(headers['webhook-signature']),
-      },
-      { status: 400 },
-    )
+    console.error('Whop webhook signature verification failed')
+    return Response.json({ error: 'Invalid signature' }, { status: 400 })
   }
 
   if (event.type !== 'payment.succeeded') {
