@@ -31,8 +31,11 @@ export async function POST(req: Request) {
   try {
     event = whopSdk.webhooks.unwrap(body, { headers })
   } catch (err) {
-    console.error('Whop webhook verification failed:', err)
-    return Response.json({ error: 'Invalid signature' }, { status: 400 })
+    // TEMP debug: surface the real verification error in the response so it
+    // shows up in Whop's "Test webhook" Response box.
+    const detail = err instanceof Error ? err.message : String(err)
+    console.error('Whop webhook verification failed:', detail)
+    return Response.json({ error: 'Invalid signature', detail }, { status: 400 })
   }
 
   if (event.type !== 'payment.succeeded') {
