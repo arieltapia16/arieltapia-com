@@ -2,9 +2,8 @@
 
 import { useState } from 'react'
 import { FaWhatsapp } from 'react-icons/fa6'
-import WhopCheckout from '@/components/WhopCheckout'
+import CourseCheckout from '@/components/CourseCheckout'
 import MetaPixel from '@/components/MetaPixel'
-import { WHOP_PLAN_ID } from '@/lib/whop'
 
 // URL de embed del VSL (YouTube unlisted)
 const VIDEO_URL = 'https://www.youtube.com/embed/_b2h9Z9A7KM?rel=0&modestbranding=1&playsinline=1&autoplay=1&mute=1'
@@ -14,7 +13,6 @@ const BULLETS = [
   { title: 'Ganchos para frenar el scroll', desc: '+ batería de 60 ganchos para copiar' },
   { title: 'Retención y CTA', desc: 'que terminen el video y te escriban' },
   { title: 'Edición paso a paso con CapCut', desc: 'para Instagram y TikTok' },
-  { title: 'Bonus', desc: '30 días de guiones armados conmigo en una llamada' },
 ]
 
 const FAQ = [
@@ -35,12 +33,8 @@ const FAQ = [
     a: 'No. Vos sabés entrenar; yo te doy el sistema para que eso se traduzca en clientes. Lo seguís en orden y listo.',
   },
   {
-    q: '¿Qué es el bonus de los 30 días?',
-    a: 'Una llamada conmigo donde armamos juntos un mes entero de guiones para tu nicho. Salís con el contenido resuelto.',
-  },
-  {
     q: '¿Cómo accedo después de pagar?',
-    a: 'Entrás directo al curso completo con todos los módulos y la batería de ganchos, y agendás tu llamada de guiones desde adentro.',
+    a: 'Entrás directo al curso completo con todos los módulos y la batería de ganchos.',
   },
 ]
 
@@ -49,10 +43,10 @@ function PriceTag({ size = 'lg' }: { size?: 'md' | 'lg' }) {
   const stroked = size === 'lg' ? 'text-xl' : 'text-lg'
   return (
     <div className="flex items-center justify-center gap-3 flex-wrap">
-      <span className={`text-red-600 line-through ${stroked}`}>USD 43,75</span>
-      <span className={`font-serif text-green-600 ${price} font-bold`}>USD 35</span>
+      <span className={`text-red-600 line-through ${stroked}`}>USD 59</span>
+      <span className={`font-serif text-green-600 ${price} font-bold`}>USD 19</span>
       <span className="bg-green-600/10 text-green-700 text-xs font-semibold px-3 py-1 border border-green-600/30 uppercase tracking-widest">
-        Ahorrás 20%
+        Ahorrás 68%
       </span>
     </div>
   )
@@ -133,8 +127,8 @@ export default function CursoPage() {
             </h2>
             <p className="text-neutral-700 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
               Para entrenadores, nutris y coaches que saben de lo suyo pero tienen las redes muertas.
-              Nicho, ganchos, retención, CTA y edición — paso a paso. Más 60 ganchos listos y un mes
-              de guiones armado conmigo. Conseguís tus primeros clientes con lo que ya tenés, sin
+              Nicho, ganchos, retención, CTA y edición — paso a paso. Más 60 ganchos listos.
+              Conseguís tus primeros clientes con lo que ya tenés, sin
               tener que invertir en pauta para arrancar.
             </p>
             <p className="text-neutral-600 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
@@ -229,9 +223,8 @@ export default function CursoPage() {
                 Solo completa la información abajo y<br className="hidden sm:inline" />{' '}
                 obtené acceso inmediato.
               </h3>
-              {/* ⬇️ Embed de Whop ⬇️ */}
-              <WhopCheckout planId={WHOP_PLAN_ID} theme="light" />
-              <PriceTag />
+              {/* ⬇️ Checkout: add-on (guiones) + embed de Whop ⬇️ */}
+              <CourseCheckout />
               <a
                 href={`https://wa.me/5492236693894?text=${encodeURIComponent(
                   'Tengo dudas sobre De Cero a Clientes en Redes',
@@ -253,7 +246,7 @@ export default function CursoPage() {
         href="#checkout"
         className="sm:hidden fixed bottom-0 left-0 right-0 z-50 bg-blue-600 text-white text-center text-sm font-semibold py-4 px-5 uppercase tracking-widest shadow-[0_-8px_24px_rgba(37,99,235,0.45)]"
       >
-        Quiero que mis redes me traigan clientes — USD 35
+        Quiero que mis redes me traigan clientes — USD 19
       </a>
     </main>
   )

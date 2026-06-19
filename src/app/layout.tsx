@@ -52,7 +52,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body className={`${inter.variable} ${playfair.variable} ${daysOne.variable} font-sans`}>{children}</body>
+      <body
+        suppressHydrationWarning
+        className={`${inter.variable} ${playfair.variable} ${daysOne.variable} font-sans`}
+      >
+        {children}
+      </body>
     </html>
   )
 }

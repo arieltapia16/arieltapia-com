@@ -16,11 +16,12 @@ import { useEffect } from 'react'
 const SCRIPT_SRC = 'https://js.whop.com/static/checkout/loader.js'
 const SCRIPT_ID = 'whop-checkout-loader'
 
-// Ref-count: el loader se carga una sola vez por página y se desmonta cuando
-// se desmonta la última instancia. Así dos <WhopCheckout/> en la misma página
-// no se pisan entre sí.
-let mountedInstances = 0
-
+// El loader de Whop se inyecta UNA sola vez por página y nunca se remueve.
+// El loader trae su propio MutationObserver, así que monta automáticamente
+// cualquier div `data-whop-checkout-plan-id` nuevo (p. ej. cuando el checkbox
+// del add-on re-monta el embed con otro plan). Removerlo y re-inyectarlo en
+// cada cambio provocaba "CreateListFromArrayLike called on non-object" y el
+// embed dejaba de renderizar.
 export default function WhopCheckout({
   planId,
   theme = 'dark',
@@ -29,21 +30,12 @@ export default function WhopCheckout({
   theme?: 'light' | 'dark'
 }) {
   useEffect(() => {
-    mountedInstances++
     if (!document.getElementById(SCRIPT_ID)) {
       const tag = document.createElement('script')
       tag.id = SCRIPT_ID
       tag.src = SCRIPT_SRC
       tag.async = true
       document.body.appendChild(tag)
-    }
-    return () => {
-      mountedInstances--
-      if (mountedInstances <= 0) {
-        const t = document.getElementById(SCRIPT_ID)
-        if (t) t.remove()
-        mountedInstances = 0
-      }
     }
   }, [])
 

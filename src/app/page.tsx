@@ -3,8 +3,7 @@
 import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
-import WhopCheckout from '@/components/WhopCheckout'
-import { WHOP_PLAN_ID } from '@/lib/whop'
+import CourseCheckout from '@/components/CourseCheckout'
 
 type Countdown = { days: number; hours: number; minutes: number; seconds: number }
 
@@ -19,7 +18,9 @@ export default function Home() {
   useEffect(() => {
     const KEY = 'oferta_expiry'
     let expiry = localStorage.getItem(KEY)
-    if (!expiry) {
+    // Si no hay expiry o ya venció, arrancamos una nueva ventana de 7 días
+    // (así el contador nunca queda clavado en 00:00:00:00).
+    if (!expiry || new Date(expiry).getTime() <= Date.now()) {
       const d = new Date()
       d.setDate(d.getDate() + 7)
       expiry = d.toISOString()
@@ -284,19 +285,20 @@ export default function Home() {
               De Cero a Clientes
             </h3>
             <p className="text-white/55 text-sm leading-relaxed mb-2 max-w-md">
-              Si todavía no tenés presencia digital, este programa te lleva desde cero hasta tu primer cliente online.
+              Si todavía no tenés presencia digital, este curso te lleva desde cero hasta tu primer cliente online.
               Contenido, audiencia y ventas — paso a paso, antes de encarar la mentoría 1:1.
             </p>
-            <p className="text-[#FF5C00]/70 text-xs italic mb-6">
-              También viene incluido en el plan base de la mentoría 1:1.
+            <p className="text-white/55 text-sm leading-relaxed mb-6 max-w-md">
+              Y si querés, le sumás <span className="text-white/80 font-semibold">un mes completo de guiones</span>{' '}
+              listos para grabar — todo armado para tu nicho.
             </p>
 
             {/* Price */}
             <div className="flex items-center gap-3 mb-6">
-              <span className="text-red-400 line-through text-lg">USD 43,75</span>
-              <span className="font-serif text-green-400 text-3xl font-bold">USD 35</span>
+              <span className="text-red-400 line-through text-lg">USD 59</span>
+              <span className="font-serif text-green-400 text-3xl font-bold">USD 19</span>
               <span className="bg-green-400/15 text-green-300 text-xs font-semibold px-2 py-0.5 border border-green-400/30">
-                Ahorrás 20%
+                Ahorrás 68%
               </span>
             </div>
 
@@ -319,7 +321,7 @@ export default function Home() {
             </div>
 
             <div className="w-full mb-3">
-              <WhopCheckout planId={WHOP_PLAN_ID} />
+              <CourseCheckout theme="dark" />
             </div>
             <a
               href={`https://wa.me/5492236693894?text=${encodeURIComponent('Tengo dudas sobre De Cero a Clientes')}`}
@@ -427,26 +429,23 @@ export default function Home() {
         <div className="w-full max-w-lg border border-[#FF5C00]/40 bg-white/3 px-6 py-7 mb-24 text-center">
           <p className="text-white/40 text-xs tracking-[0.25em] uppercase mb-3">Antes de aplicar</p>
           <p className="text-white font-semibold text-base mb-2">¿Todavía no tenés contenido online?</p>
-          <p className="text-white/50 text-sm leading-relaxed mb-2">
+          <p className="text-white/50 text-sm leading-relaxed mb-5">
             Esta mentoría no es para vos todavía — y eso está bien.
-            Tengo un programa previo para que arranques desde cero y llegues listo.
-          </p>
-          <p className="text-[#FF5C00]/70 text-xs italic mb-5">
-            También viene incluido en el plan base de la mentoría 1:1.
+            Tengo un curso previo para que arranques desde cero y llegues listo.
           </p>
           {/* Price */}
           <div className="flex items-center justify-center gap-3 mb-3 flex-wrap">
-            <span className="text-red-400 line-through text-base">USD 43,75</span>
-            <span className="font-serif text-green-400 text-4xl font-bold">USD 35</span>
+            <span className="text-red-400 line-through text-base">USD 59</span>
+            <span className="font-serif text-green-400 text-4xl font-bold">USD 19</span>
             <span className="bg-green-400/15 text-green-300 text-xs font-semibold px-2 py-0.5 border border-green-400/30">
-              Ahorrás 20%
+              Ahorrás 68%
             </span>
           </div>
           <p className="font-serif text-white text-lg font-semibold mb-5 leading-snug">
-            Curso + guía para que tengas todo para arrancar
+            Curso completo — y si querés, sumale un mes de guiones
           </p>
           <div className="w-full mb-3">
-            <WhopCheckout planId={WHOP_PLAN_ID} />
+            <CourseCheckout theme="dark" />
           </div>
           <a
             href={`https://wa.me/5492236693894?text=${encodeURIComponent('Tengo dudas sobre De Cero a Clientes')}`}
@@ -459,7 +458,7 @@ export default function Home() {
           </a>
         </div>
 
-        {/* Transición — separa visualmente el pago USD 35 del formulario 1:1 */}
+        {/* Transición — separa visualmente el pago USD 19 del formulario 1:1 */}
         <div className="w-full flex flex-col items-center mb-20">
           <div className="w-10 h-px bg-white/15 mb-12" />
           <div className="relative w-36 h-36 sm:w-44 sm:h-44 mb-8 overflow-hidden rounded-full border border-white/10">
