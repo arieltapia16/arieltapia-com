@@ -27,9 +27,16 @@ export async function POST(req: Request) {
 
   // Verifies the Standard-Webhooks signature against WHOP_WEBHOOK_SECRET and
   // throws if it doesn't match, so spoofed requests are rejected.
+  // standardwebhooks (used by @whop/sdk) base64-decodes the secret and only
+  // strips a `whsec_` prefix. Whop's secret uses a `ws_` prefix, so normalize it
+  // to the bare base64 key before verifying.
+  const webhookKey = (process.env.WHOP_WEBHOOK_SECRET ?? '')
+    .trim()
+    .replace(/^ws_/, '')
+
   let event
   try {
-    event = whopSdk.webhooks.unwrap(body, { headers })
+    event = whopSdk.webhooks.unwrap(body, { headers, key: webhookKey })
   } catch (err) {
     // TEMP debug: surface the real verification error in the response so it
     // shows up in Whop's "Test webhook" Response box.
