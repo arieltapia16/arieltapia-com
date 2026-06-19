@@ -30,17 +30,17 @@ export async function POST(req: Request) {
   // standardwebhooks (used by @whop/sdk) always base64-decodes the key we hand
   // it. Whop's secret is `ws_<value>`; the value can be hex, raw bytes, or
   // base64, so try each (converted to base64) and use whichever verifies.
-  // Whop's webhook secret is `ws_<hex>`. standardwebhooks (used by @whop/sdk)
-  // base64-decodes whatever key we hand it, so hex-decode the value after the
-  // prefix and re-encode as base64. (Fallbacks cover other encodings in case
-  // Whop ever changes the secret format.)
-  const afterPrefix = (process.env.WHOP_WEBHOOK_SECRET ?? '')
-    .trim()
-    .replace(/^ws_/, '')
+  // standardwebhooks (used by @whop/sdk) base64-decodes whatever key we hand it.
+  // Whop's `ws_` secret doesn't map cleanly to that, so try the plausible key
+  // derivations and use whichever verifies (the full secret as raw UTF-8 bytes
+  // is the one that matches Whop's signing).
+  const fullSecret = (process.env.WHOP_WEBHOOK_SECRET ?? '').trim()
+  const afterPrefix = fullSecret.replace(/^ws_/, '')
   const keyCandidates = [
+    Buffer.from(fullSecret, 'utf8').toString('base64'),
     Buffer.from(afterPrefix, 'hex').toString('base64'),
-    afterPrefix,
     Buffer.from(afterPrefix, 'utf8').toString('base64'),
+    afterPrefix,
   ]
 
   let event: ReturnType<typeof whopSdk.webhooks.unwrap> | undefined
