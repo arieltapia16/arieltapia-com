@@ -6,7 +6,7 @@ import CourseCheckout from '@/components/CourseCheckout'
 import MetaPixel from '@/components/MetaPixel'
 
 // URL de embed del VSL (YouTube unlisted)
-const VIDEO_URL = 'https://www.youtube.com/embed/_b2h9Z9A7KM?rel=0&modestbranding=1&playsinline=1&autoplay=1&mute=1'
+const VIDEO_URL = 'https://www.youtube.com/embed/XeF0x41l4-M?rel=0&modestbranding=1&playsinline=1&autoplay=1&mute=1'
 
 const BULLETS = [
   { title: 'Nicho', desc: 'que el que te ve diga "esto es para mí" al instante' },
