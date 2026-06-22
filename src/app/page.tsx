@@ -1,11 +1,8 @@
 'use client'
 
 import Image from 'next/image'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
-import CourseCheckout from '@/components/CourseCheckout'
-
-type Countdown = { days: number; hours: number; minutes: number; seconds: number }
 
 export default function Home() {
   const [name, setName] = useState('')
@@ -13,33 +10,6 @@ export default function Home() {
   const [rubro, setRubro] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [timeLeft, setTimeLeft] = useState<Countdown>({ days: 0, hours: 0, minutes: 0, seconds: 0 })
-
-  useEffect(() => {
-    const KEY = 'oferta_expiry'
-    let expiry = localStorage.getItem(KEY)
-    // Si no hay expiry o ya venció, arrancamos una nueva ventana de 7 días
-    // (así el contador nunca queda clavado en 00:00:00:00).
-    if (!expiry || new Date(expiry).getTime() <= Date.now()) {
-      const d = new Date()
-      d.setDate(d.getDate() + 7)
-      expiry = d.toISOString()
-      localStorage.setItem(KEY, expiry)
-    }
-    const tick = () => {
-      const diff = new Date(expiry!).getTime() - Date.now()
-      if (diff <= 0) { setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 }); return }
-      setTimeLeft({
-        days: Math.floor(diff / 86400000),
-        hours: Math.floor((diff % 86400000) / 3600000),
-        minutes: Math.floor((diff % 3600000) / 60000),
-        seconds: Math.floor((diff % 60000) / 1000),
-      })
-    }
-    tick()
-    const id = setInterval(tick, 1000)
-    return () => clearInterval(id)
-  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -264,7 +234,7 @@ export default function Home() {
 
         {/* CTA 1 */}
         <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md mb-20">
-          <a href="#contacto" className="flex-1 text-center bg-[#FF5C00] text-white text-sm font-semibold py-3 px-5 hover:bg-[#e05200] transition-colors tracking-widest uppercase">
+          <a href="#contacto" className="flex-1 text-center bg-white text-[#FF5C00] border border-[#FF5C00] text-sm font-semibold py-3 px-5 hover:ring-2 hover:ring-[#FF5C00] transition-all tracking-widest uppercase">
             Quiero este programa
           </a>
           <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex-1 text-center border border-white/20 text-white/60 text-sm font-semibold py-3 px-5 hover:border-white/50 hover:text-white transition-colors flex items-center justify-center gap-2">
@@ -293,36 +263,13 @@ export default function Home() {
               listos para grabar — todo armado para tu nicho.
             </p>
 
-            {/* Price */}
-            <div className="flex items-center gap-3 mb-6">
-              <span className="text-red-400 line-through text-lg">USD 59</span>
-              <span className="font-serif text-green-400 text-3xl font-bold">USD 19</span>
-              <span className="bg-green-400/15 text-green-300 text-xs font-semibold px-2 py-0.5 border border-green-400/30">
-                Ahorrás 68%
-              </span>
-            </div>
-
-            {/* Countdown */}
-            <p className="text-white/30 text-xs uppercase tracking-[0.2em] mb-3">Oferta válida por</p>
-            <div className="flex gap-3 mb-8">
-              {[
-                { val: timeLeft.days, label: 'días' },
-                { val: timeLeft.hours, label: 'hs' },
-                { val: timeLeft.minutes, label: 'min' },
-                { val: timeLeft.seconds, label: 'seg' },
-              ].map(({ val, label }) => (
-                <div key={label} className="flex flex-col items-center w-14 border border-white/10 py-2">
-                  <span className="font-serif text-white text-xl font-bold tabular-nums">
-                    {String(val).padStart(2, '0')}
-                  </span>
-                  <span className="text-white/30 text-[10px] uppercase tracking-widest mt-0.5">{label}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="w-full mb-3">
-              <CourseCheckout theme="dark" />
-            </div>
+            <a
+              href="/curso"
+              className="inline-block bg-[#FF5C00] text-white border border-white text-sm font-semibold py-3 px-6 hover:bg-[#e05200] transition-colors tracking-widest uppercase mb-3"
+            >
+              Necesito empezar a vender online
+            </a>
+            <br />
             <a
               href={`https://wa.me/5492236693894?text=${encodeURIComponent('Tengo dudas sobre De Cero a Clientes')}`}
               target="_blank"
@@ -362,7 +309,7 @@ export default function Home() {
 
         {/* CTA 2 */}
         <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md mb-20">
-          <a href="#contacto" className="flex-1 text-center bg-[#FF5C00] text-white text-sm font-semibold py-3 px-5 hover:bg-[#e05200] transition-colors tracking-widest uppercase">
+          <a href="#contacto" className="flex-1 text-center bg-white text-[#FF5C00] border border-[#FF5C00] text-sm font-semibold py-3 px-5 hover:ring-2 hover:ring-[#FF5C00] transition-all tracking-widest uppercase">
             Quiero este programa
           </a>
           <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex-1 text-center border border-white/20 text-white/60 text-sm font-semibold py-3 px-5 hover:border-white/50 hover:text-white transition-colors flex items-center justify-center gap-2">
@@ -389,7 +336,7 @@ export default function Home() {
 
         {/* CTA 3 */}
         <div className="flex flex-col sm:flex-row gap-3 w-full max-w-md mb-20">
-          <a href="#contacto" className="flex-1 text-center bg-[#FF5C00] text-white text-sm font-semibold py-3 px-5 hover:bg-[#e05200] transition-colors tracking-widest uppercase">
+          <a href="#contacto" className="flex-1 text-center bg-white text-[#FF5C00] border border-[#FF5C00] text-sm font-semibold py-3 px-5 hover:ring-2 hover:ring-[#FF5C00] transition-all tracking-widest uppercase">
             Quiero este programa
           </a>
           <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex-1 text-center border border-white/20 text-white/60 text-sm font-semibold py-3 px-5 hover:border-white/50 hover:text-white transition-colors flex items-center justify-center gap-2">
@@ -433,20 +380,13 @@ export default function Home() {
             Esta mentoría no es para vos todavía — y eso está bien.
             Tengo un curso previo para que arranques desde cero y llegues listo.
           </p>
-          {/* Price */}
-          <div className="flex items-center justify-center gap-3 mb-3 flex-wrap">
-            <span className="text-red-400 line-through text-base">USD 59</span>
-            <span className="font-serif text-green-400 text-4xl font-bold">USD 19</span>
-            <span className="bg-green-400/15 text-green-300 text-xs font-semibold px-2 py-0.5 border border-green-400/30">
-              Ahorrás 68%
-            </span>
-          </div>
-          <p className="font-serif text-white text-lg font-semibold mb-5 leading-snug">
-            Curso completo — y si querés, sumale un mes de guiones
-          </p>
-          <div className="w-full mb-3">
-            <CourseCheckout theme="dark" />
-          </div>
+          <a
+            href="/curso"
+            className="inline-block bg-[#FF5C00] text-white border border-white text-sm font-semibold py-3 px-6 hover:bg-[#e05200] transition-colors tracking-widest uppercase mb-3"
+          >
+            Necesito empezar a vender online
+          </a>
+          <br />
           <a
             href={`https://wa.me/5492236693894?text=${encodeURIComponent('Tengo dudas sobre De Cero a Clientes')}`}
             target="_blank"
@@ -520,7 +460,7 @@ export default function Home() {
             <button
               type="submit"
               disabled={loading}
-              className="bg-[#FF5C00] text-white text-sm font-semibold py-3 px-6 hover:bg-[#e05200] transition-colors tracking-widest uppercase disabled:opacity-50"
+              className="bg-white text-[#FF5C00] border border-[#FF5C00] text-sm font-semibold py-3 px-6 hover:ring-2 hover:ring-[#FF5C00] transition-all tracking-widest uppercase disabled:opacity-50"
             >
               {loading ? 'Enviando...' : 'Quiero este programa'}
             </button>
