@@ -8,6 +8,10 @@ import MetaPixel from '@/components/MetaPixel'
 // URL de embed del VSL (YouTube unlisted)
 const VIDEO_URL = 'https://www.youtube.com/embed/XeF0x41l4-M?rel=0&modestbranding=1&playsinline=1&autoplay=1&mute=1'
 
+// Oculto el VSL hasta grabar el video nuevo con el precio actualizado.
+// Poner en true para volver a mostrarlo.
+const SHOW_VSL = false
+
 const BULLETS = [
   { title: 'Nicho', desc: 'que el que te ve diga "esto es para mí" al instante' },
   { title: 'Ganchos para frenar el scroll', desc: '+ batería de 60 ganchos para copiar' },
@@ -100,20 +104,24 @@ export default function CursoPage() {
               sin pauta y sin más seguidores.
             </h1>
 
-            <p className="text-neutral-600 text-base sm:text-lg leading-snug text-center max-w-2xl mx-auto">
-              Mirá el video — al terminar vas a tener claro exactamente qué hacer
-              mañana con tu cuenta.
-            </p>
+            {SHOW_VSL && (
+              <>
+                <p className="text-neutral-600 text-base sm:text-lg leading-snug text-center max-w-2xl mx-auto">
+                  Mirá el video — al terminar vas a tener claro exactamente qué hacer
+                  mañana con tu cuenta.
+                </p>
 
-            <div className="relative w-full aspect-video bg-neutral-100 border border-neutral-200 overflow-hidden rounded-md shadow-sm">
-              <iframe
-                src={VIDEO_URL}
-                title="De Cero a Clientes en Redes"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-                className="absolute inset-0 w-full h-full"
-              />
-            </div>
+                <div className="relative w-full aspect-video bg-neutral-100 border border-neutral-200 overflow-hidden rounded-md shadow-sm">
+                  <iframe
+                    src={VIDEO_URL}
+                    title="De Cero a Clientes en Redes"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full"
+                  />
+                </div>
+              </>
+            )}
           </section>
 
           {/* DESCRIPCIÓN — debajo del video */}
