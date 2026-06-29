@@ -259,7 +259,7 @@ export default function Home() {
               Contenido, audiencia y ventas — paso a paso, antes de encarar la mentoría 1:1.
             </p>
             <p className="text-white/55 text-sm leading-relaxed mb-6 max-w-md">
-              Y si querés, le sumás <span className="text-white/80 font-semibold">un mes completo de guiones</span>{' '}
+              Incluye <span className="text-white/80 font-semibold">un mes completo de guiones</span>{' '}
               listos para grabar — todo armado para tu nicho.
             </p>
 
@@ -398,7 +398,7 @@ export default function Home() {
           </a>
         </div>
 
-        {/* Transición — separa visualmente el pago USD 19 del formulario 1:1 */}
+        {/* Transición — separa visualmente el pago USD 49 del formulario 1:1 */}
         <div className="w-full flex flex-col items-center mb-20">
           <div className="w-10 h-px bg-white/15 mb-12" />
           <div className="relative w-36 h-36 sm:w-44 sm:h-44 mb-8 overflow-hidden rounded-full border border-white/10">

@@ -43,10 +43,10 @@ function PriceTag({ size = 'lg' }: { size?: 'md' | 'lg' }) {
   const stroked = size === 'lg' ? 'text-xl' : 'text-lg'
   return (
     <div className="flex items-center justify-center gap-3 flex-wrap">
-      <span className={`text-red-600 line-through ${stroked}`}>USD 59</span>
-      <span className={`font-serif text-green-600 ${price} font-bold`}>USD 19</span>
+      <span className={`text-red-600 line-through ${stroked}`}>USD 100</span>
+      <span className={`font-serif text-green-600 ${price} font-bold`}>USD 49</span>
       <span className="bg-green-600/10 text-green-700 text-xs font-semibold px-3 py-1 border border-green-600/30 uppercase tracking-widest">
-        Ahorrás 68%
+        Ahorrás 51%
       </span>
     </div>
   )
@@ -246,7 +246,7 @@ export default function CursoPage() {
         href="#checkout"
         className="sm:hidden fixed bottom-0 left-0 right-0 z-50 bg-blue-600 text-white text-center text-sm font-semibold py-4 px-5 uppercase tracking-widest shadow-[0_-8px_24px_rgba(37,99,235,0.45)]"
       >
-        Quiero que mis redes me traigan clientes — USD 19
+        Quiero que mis redes me traigan clientes — USD 49
       </a>
     </main>
   )

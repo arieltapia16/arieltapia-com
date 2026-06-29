@@ -1,7 +1,7 @@
 import { getPaypalAccessToken, getPaypalBaseUrl } from '@/lib/paypal'
 
 const PRODUCT_NAME = 'De Cero a Clientes — Curso + Guiones'
-const PRICE_USD = '35.00'
+const PRICE_USD = '49.00'
 
 export async function POST() {
   try {

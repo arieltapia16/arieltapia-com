@@ -312,10 +312,10 @@ export default function OfertaPage() {
         </p>
         <div className="mb-7 text-center border border-[#FF5C00]/40 px-8 py-5 max-w-sm">
           <div className="flex items-center justify-center gap-3 mb-2 flex-wrap">
-            <span className="text-red-400 line-through text-lg">USD 43,75</span>
-            <span className="font-serif text-green-400 text-4xl font-bold">USD 35</span>
+            <span className="text-red-400 line-through text-lg">USD 100</span>
+            <span className="font-serif text-green-400 text-4xl font-bold">USD 49</span>
             <span className="bg-green-400/15 text-green-300 text-xs font-semibold px-2 py-0.5 border border-green-400/30">
-              Ahorrás 20%
+              Ahorrás 51%
             </span>
           </div>
           <p className="text-white/60 text-base leading-relaxed">
