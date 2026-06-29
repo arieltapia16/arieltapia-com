@@ -99,8 +99,8 @@ export default function CursoPage() {
             </p>
 
             <h1 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold leading-tight text-center max-w-3xl mx-auto">
-              Copia mi sistema para que tu Instagram{' '}
-              <span className="text-blue-700">te traiga clientes</span>,{' '}
+              Copia mi sistema para que tu TikTok e Instagram{' '}
+              <span className="text-blue-700">te traigan clientes</span>,{' '}
               sin pauta y sin más seguidores.
             </h1>
 
@@ -130,7 +130,7 @@ export default function CursoPage() {
               De Cero a Clientes en Redes
             </p>
             <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold leading-tight max-w-2xl mx-auto">
-              El sistema para que tu Instagram te traiga clientes,
+              El sistema para que tu TikTok e Instagram te traigan clientes,
               aunque tengas pocos seguidores.
             </h2>
             <p className="text-neutral-700 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
