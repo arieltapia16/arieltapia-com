@@ -251,10 +251,10 @@ export default function CursoPage() {
 
       {/* CTA fijo mobile que scrollea al checkout */}
       <a
-        href="#checkout"
+        href="#checkout-final"
         className="sm:hidden fixed bottom-0 left-0 right-0 z-50 bg-blue-600 text-white text-center text-sm font-semibold py-4 px-5 uppercase tracking-widest shadow-[0_-8px_24px_rgba(37,99,235,0.45)]"
       >
-        Quiero que mis redes me traigan clientes — USD 49
+        Quiero que mis redes me traigan clientes
       </a>
     </main>
   )
