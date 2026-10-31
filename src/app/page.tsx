@@ -4,6 +4,10 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6'
 
+// Por ahora solo se venden mentorías: oculta los bloques del curso "De Cero a Clientes" (USD 49).
+// Poner en true para volver a mostrarlos.
+const SHOW_COURSE = false
+
 export default function Home() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -122,10 +126,14 @@ export default function Home() {
       {/* Who I am section */}
       <section className="py-20 px-6 flex flex-col items-center border-b border-white/5">
         <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-10">Quién soy</p>
-        <div className="grid grid-cols-3 gap-6 sm:gap-12 mb-12 w-full max-w-md text-center">
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-8 sm:gap-8 mb-12 w-full max-w-xl text-center">
           <div>
             <p className="font-serif text-[#FF5C00] text-3xl sm:text-4xl font-bold">20</p>
             <p className="text-white/50 text-xs mt-1 leading-snug">años cerrando<br/>cara a cara</p>
+          </div>
+          <div>
+            <p className="font-serif text-[#FF5C00] text-3xl sm:text-4xl font-bold">30k</p>
+            <p className="text-white/50 text-xs mt-1 leading-snug">USD/mes closeando<br/>para fitness · 1 año</p>
           </div>
           <div>
             <p className="font-serif text-[#FF5C00] text-3xl sm:text-4xl font-bold">&lt;/&gt;</p>
@@ -137,7 +145,7 @@ export default function Home() {
           </div>
         </div>
         <p className="text-white/60 text-sm sm:text-base text-center max-w-sm leading-relaxed">
-          Combiné mostrador, consultorio y llamadas en frío con tecnología para construir un sistema de cierre por chat. No es estrategia de contenido — es venta.
+          Combiné mostrador, salón y llamadas en frío con tecnología para construir un sistema de cierre por chat. El último año lo pasé closeando para el nicho fitness, con ventas de USD 30k por mes. No es estrategia de contenido — es venta.
         </p>
       </section>
 
@@ -243,7 +251,8 @@ export default function Home() {
           </a>
         </div>
 
-        {/* De Cero a Clientes */}
+        {/* De Cero a Clientes (oculto mientras SHOW_COURSE sea false) */}
+        {SHOW_COURSE && (
         <div className="w-full max-w-2xl mb-20">
           <div className="border border-[#FF5C00]/40 bg-white/3 px-6 py-8 sm:px-10">
             <div className="flex items-center gap-2 mb-5">
@@ -281,6 +290,7 @@ export default function Home() {
             </a>
           </div>
         </div>
+        )}
 
         {/* Benefits */}
         <p className="text-white/40 text-xs tracking-[0.3em] uppercase mb-4">La mentoría 1:1</p>
@@ -372,7 +382,8 @@ export default function Home() {
           {' '}<span className="text-white/70">La pregunta es si tenés el sistema para traducirlo al canal digital.</span>
         </p>
 
-        {/* Si no tenés contenido — filter block */}
+        {/* Si no tenés contenido — filter block (oculto mientras SHOW_COURSE sea false) */}
+        {SHOW_COURSE && (
         <div className="w-full max-w-lg border border-[#FF5C00]/40 bg-white/3 px-6 py-7 mb-24 text-center">
           <p className="text-white/40 text-xs tracking-[0.25em] uppercase mb-3">Antes de aplicar</p>
           <p className="text-white font-semibold text-base mb-2">¿Todavía no tenés contenido online?</p>
@@ -397,6 +408,7 @@ export default function Home() {
             Tengo dudas — escribime por WhatsApp
           </a>
         </div>
+        )}
 
         {/* Transición — separa visualmente el pago USD 49 del formulario 1:1 */}
         <div className="w-full flex flex-col items-center mb-20">
