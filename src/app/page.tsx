@@ -32,7 +32,7 @@ export default function Home() {
     <main className="bg-[#0D0D0D] min-h-screen">
 
       {/* Hero */}
-      <section className="relative h-screen min-h-[600px] flex flex-col">
+      <section className="relative min-h-screen flex flex-col overflow-hidden">
 
         {/* Background blurred photo */}
         <Image
