@@ -422,7 +422,7 @@ export default function Home() {
               className="object-cover"
             />
           </div>
-          <p className="text-[#FF5C00]/70 text-xs tracking-[0.3em] uppercase mb-4">Si ya tenés audiencia</p>
+          <p className="text-[#FF5C00]/70 text-xs tracking-[0.3em] uppercase mb-4">Hablemos de cómo resolver tu caso</p>
           <p className="font-serif text-white text-2xl sm:text-3xl font-semibold text-center max-w-md leading-snug mb-4">
             Pasemos a hablar 1:1
           </p>
